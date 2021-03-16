@@ -1,0 +1,30 @@
+{
+    "env": {
+        "browser": true,
+        "react-native/react-native": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "react-native"
+    ],
+    "rules": {
+        "react/jsx-filename-extension": [0],
+        "import/extensions": "off",
+        "no-console": "off",
+        "react/prop-types": 0,
+        "linebreak-style": 0,
+        "import/named": 0,
+        "no-use-before-define": 0
+    }
+}

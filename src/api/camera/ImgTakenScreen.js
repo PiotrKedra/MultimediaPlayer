@@ -1,20 +1,21 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import { WHITE } from '../../assets/values/colors';
+import FilterComponent from './filter/FilterComponent';
+import { STD_MARGIN } from '../../assets/values/dimensions';
 
 const ImgTakenScreen = ({ navigation, route }) => {
-  console.log(route);
   const { img } = route.params;
   return (
     <View style={styles.container}>
-      <Image source={{ uri: img }} style={styles.img} />
+      <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+      <FilterComponent navigation={navigation} img={img} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: WHITE },
-  img: { width: 'auto', height: '100%', resizeMode: 'contain' },
+  container: { flex: 1, backgroundColor: WHITE, paddingTop: STD_MARGIN },
 });
 
 export default ImgTakenScreen;

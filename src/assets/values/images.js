@@ -4,10 +4,23 @@ const EXPAND_ARROW = require('../images/icons/expand-arrow.png');
 const FAVORITE = require('../images/icons/favorite.png');
 const DELETE = require('../images/icons/delete.png');
 const BACK = require('../images/icons/back.png');
-const DEFAULT_IMG_1 = require('../images/default/default-1.jpg');
-const DEFAULT_IMG_2 = require('../images/default/default-2.jpg');
-const DEFAULT_IMG_3 = require('../images/default/default-3.jpg');
+const FILTER_LOMO_MAP = require('../images/filters/lomoMap.png');
+const FILTER_VIGNETTE_MAP = require('../images/filters/vignetteMap.png');
+const FILTER_BRANNAN_BLOWOUT = require('../images/filters/brannanBlowout.png');
+const FILTER_BRANNAN_CONTRAST = require('../images/filters/brannanContrast.png');
+const FILTER_BRANNAN_LUMA = require('../images/filters/brannanLuma.png');
+const FILTER_BRANNAN_PROCESS = require('../images/filters/brannanProcess.png');
+const FILTER_BRANNAN_SCREEN = require('../images/filters/brannanScreen.png');
+const FILTER_EDGE_BURN = require('../images/filters/edgeBurn.png');
+const FILTER_HEFE_MAP = require('../images/filters/hefeMap.png');
+const FILTER_HEFE_METAL = require('../images/filters/hefeMetal.png');
+const FILTER_HEFE_SOFT_LIGHT = require('../images/filters/hefeSoftLight.png');
+const FILTER_INKWELL_MAPP = require('../images/filters/inkwellMap.png');
 
 export {
-  MENU, SEARCH, EXPAND_ARROW, DEFAULT_IMG_1, DEFAULT_IMG_2, DEFAULT_IMG_3, FAVORITE, DELETE, BACK,
+  MENU, SEARCH, EXPAND_ARROW, FAVORITE, DELETE, BACK, FILTER_LOMO_MAP,
+  FILTER_VIGNETTE_MAP, FILTER_BRANNAN_BLOWOUT, FILTER_BRANNAN_CONTRAST,
+  FILTER_BRANNAN_LUMA, FILTER_BRANNAN_PROCESS, FILTER_BRANNAN_SCREEN,
+  FILTER_EDGE_BURN, FILTER_HEFE_MAP, FILTER_HEFE_METAL,
+  FILTER_HEFE_SOFT_LIGHT, FILTER_INKWELL_MAPP,
 };

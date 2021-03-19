@@ -1,33 +1,36 @@
 import React from 'react';
-import { StatusBar, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  Image, StatusBar, StyleSheet, TouchableOpacity,
+} from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { connect } from 'react-redux';
 import Text from '../custom-components/Text';
 import { BLACK } from '../../assets/values/colors';
 import { saveImage } from '../storage/storage';
 import { refreshMedia } from '../redux/media/media.actions';
+import { BACK } from '../../assets/values/images';
+import {
+  CAMERA_BUTTON_SIZE,
+  ICON_SIZE,
+  LARGE_MARGIN,
+  SMALL_BORDER_WIDTH,
+  STD_MARGIN,
+} from '../../assets/values/dimensions';
 
 const CameraScreen = ({ navigation, refreshMediaGrid }) => {
   const camera = React.useRef(null);
 
-  const takePicture = () => {
-    const options = { quality: 1, base64: true };
-    camera.current.takePictureAsync(options)
-      .then((data) => {
-        saveImage(data.uri);
-        navigation.navigate('ImgTakenScreen', { img: data.uri });
-        // refreshMediaGrid();
-        // navigation.goBack();
-      })
-      .catch((err) => {
-        console.error('capture picture error', err);
-      });
+  const takePicture = async () => {
+    const options = { quality: 1, base64: true, fixOrientation: true };
+    const data = await camera.current.takePictureAsync(options);
+    const path = await saveImage(data.uri);
+    navigation.navigate('ImgTakenScreen', { img: path });
   };
 
   return (
     <RNCamera
       ref={camera}
-      orientation="auto"
+      orientation="up"
       type={RNCamera.Constants.Type.back}
       androidCameraPermissionOptions={{
         title: 'Permission to use camera',
@@ -38,6 +41,18 @@ const CameraScreen = ({ navigation, refreshMediaGrid }) => {
       style={styles.container}
     >
       <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => {
+          navigation.goBack();
+          refreshMediaGrid();
+        }}
+      >
+        <Image
+          source={BACK}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
       <TouchableOpacity
         onPress={() => takePicture()}
         style={styles.button}
@@ -50,20 +65,22 @@ const CameraScreen = ({ navigation, refreshMediaGrid }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    flex: 1, alignItems: 'center', justifyContent: 'flex-end',
   },
   button: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: CAMERA_BUTTON_SIZE,
+    height: CAMERA_BUTTON_SIZE,
+    borderRadius: CAMERA_BUTTON_SIZE / 2,
     borderColor: BLACK,
-    borderWidth: 1,
-    marginBottom: 30,
+    borderWidth: SMALL_BORDER_WIDTH,
+    marginBottom: LARGE_MARGIN,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  backButton: {
+    position: 'absolute', top: STD_MARGIN, left: STD_MARGIN, paddingTop: STD_MARGIN,
+  },
+  icon: { width: ICON_SIZE, height: ICON_SIZE },
 });
 
 const mapDispatchToProps = (dispatch) => ({

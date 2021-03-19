@@ -9,10 +9,10 @@ const saveImage = async (filePath) => {
     const newFilepath = `${DIR_IMAGES}/${newImageName}`;
     await RNFS.mkdir(DIR_IMAGES);
     await RNFS.moveFile(filePath, newFilepath);
-    return true;
+    return newFilepath;
   } catch (error) {
     console.log(error);
-    return false;
+    return null;
   }
 };
 

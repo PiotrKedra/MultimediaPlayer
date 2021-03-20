@@ -1,7 +1,8 @@
-import { MEDIA_GRID_REFRESHED, REFRESH_MEDIA_GRID } from './media.types';
+import { MEDIA_GRID_REFRESHED, MEDIA_QUANTITY, REFRESH_MEDIA_GRID } from './media.types';
 
 const INITIAL_STATE = {
   shouldRefreshMedia: false,
+  mediaQuantity: null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -15,6 +16,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         shouldRefreshMedia: false,
+      };
+    case MEDIA_QUANTITY:
+      return {
+        ...state,
+        mediaQuantity: action.mediaQuantity,
       };
     default: return state;
   }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, View, StyleSheet } from 'react-native';
-import { SEARCH } from '../../assets/values/images';
-import { BLACK, SECONDARY_TEXT } from '../../assets/values/colors';
-import Text from '../custom-components/Text';
+import { SEARCH } from '../../../assets/values/images';
+import { BLACK, SECONDARY_TEXT } from '../../../assets/values/colors';
+import Text from '../../custom-components/Text';
 
 const SearchBar = () => (
   <View style={styles.bar}>

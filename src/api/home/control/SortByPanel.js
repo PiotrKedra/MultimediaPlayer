@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import Text from '../custom-components/Text';
-import { EXPAND_ARROW } from '../../assets/values/images';
-import { SECONDARY_TEXT } from '../../assets/values/colors';
+import Text from '../../custom-components/Text';
+import { EXPAND_ARROW } from '../../../assets/values/images';
+import { SECONDARY_TEXT } from '../../../assets/values/colors';
 
 const SortByPanel = () => (
   <View style={styles.container}>

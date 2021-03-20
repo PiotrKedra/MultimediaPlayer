@@ -1,3 +1,5 @@
+export const ALL = 'All';
+export const FILES = 'files';
 export const SAVE_TEXT = 'save';
 export const SATURATION_TEXT = 'Saturation';
 export const INKWELL_TEXT = 'Inkwell';

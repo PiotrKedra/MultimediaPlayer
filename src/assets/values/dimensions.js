@@ -1,8 +1,10 @@
 export const STD_MARGIN = 18;
 export const SMALL_MARGIN = 10;
+export const TINY_MARGIN = 5;
 export const LARGE_MARGIN = 32;
 export const HOME_TOP_PADDING = 10;
 export const ICON_SIZE = 40;
+export const SMALL_ICON_SIZE = 35;
 export const FILTER_SELECTOR_WIDTH = 90;
 export const FILTER_SELECTOR_HEIGHT = 120;
 export const MARGIN_ONE = 1;

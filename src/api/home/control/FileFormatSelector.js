@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Text from '../custom-components/Text';
+import Text from '../../custom-components/Text';
 import {
   BLACK, LIGHT, PRIMARY, SECONDARY_TEXT,
-} from '../../assets/values/colors';
+} from '../../../assets/values/colors';
 
 const FileFormatSelector = () => (
   <View style={styles.container}>

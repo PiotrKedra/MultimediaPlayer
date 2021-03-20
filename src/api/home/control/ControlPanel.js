@@ -1,22 +1,24 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { STD_MARGIN } from '../../assets/values/dimensions';
+import { connect } from 'react-redux';
+import { STD_MARGIN } from '../../../assets/values/dimensions';
 import SearchBar from './SearchBar';
 import FileFormatSelector from './FileFormatSelector';
-import Text from '../custom-components/Text';
-import { SECONDARY_TEXT } from '../../assets/values/colors';
+import Text from '../../custom-components/Text';
+import { SECONDARY_TEXT } from '../../../assets/values/colors';
 import SortByPanel from './SortByPanel';
+import { ALL, FILES } from '../../../assets/values/strings';
 
-const ControlPanel = () => (
+const ControlPanel = ({ mediaQuantity }) => (
   <View style={styles.container}>
     <SearchBar />
     <FileFormatSelector />
     <View style={styles.titleAndSortContainer}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>
-          All files
+          {`${ALL} ${FILES}`}
         </Text>
-        <Text style={styles.fileQuantity}>4 files</Text>
+        <Text style={styles.fileQuantity}>{`${mediaQuantity} ${FILES}`}</Text>
       </View>
       <SortByPanel />
     </View>
@@ -45,4 +47,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ControlPanel;
+const mapStateToProps = (state) => ({
+  mediaQuantity: state.mediaQuantity,
+});
+
+export default connect(mapStateToProps)(ControlPanel);

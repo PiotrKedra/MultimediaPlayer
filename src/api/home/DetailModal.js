@@ -5,45 +5,70 @@ import {
 import { connect } from 'react-redux';
 import Text from '../custom-components/Text';
 import parseTime from '../utility/timeParser';
-import { DELETE, FAVORITE } from '../../assets/values/images';
-import { deleteImg } from '../storage/storage';
+import { DELETE, FAVORITE, FAVORITE_FILLED } from '../../assets/values/images';
+import { deleteImg } from '../storage/imageStorage';
 import { BLACK, SECONDARY_TEXT, WHITE } from '../../assets/values/colors';
 import {
   SMALL_BORDER_WIDTH, SMALL_ICON_SIZE, SMALL_MARGIN, TINY_MARGIN,
 } from '../../assets/values/dimensions';
 import { refreshMedia } from '../redux/media/media.actions';
+import { addToFavorite, removeFromFavorite } from '../storage/imageFavoriteStorage';
 
-const DetailModal = ({ setIsDetailModal, details, refreshMediaGrid }) => (
-  <>
-    <Pressable style={styles.modalPressable} onPress={() => setIsDetailModal(false)} />
-    <View style={[styles.detailContainer, details.style]}>
-      <Text style={styles.detailText}>{details.name}</Text>
-      <Text style={styles.detailTime}>{parseTime(details.createTime)}</Text>
-      <View style={styles.detailIconContainer}>
-        <TouchableOpacity
-          onPress={() => console.log('ADD TO FAVORITE')}
-        >
-          <Image
-            source={FAVORITE}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            deleteImg(details);
-            setIsDetailModal(false);
-            refreshMediaGrid();
-          }}
-        >
-          <Image
-            source={DELETE}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+const DetailModal = ({ setIsDetailModal, details, refreshMediaGrid }) => {
+  const [isFavorite, setIsFavorite] = React.useState(details.favorite);
+  return (
+    <>
+      <Pressable style={styles.modalPressable} onPress={() => setIsDetailModal(false)} />
+      <View style={[styles.detailContainer, details.style]}>
+        <Text style={styles.detailText}>{details.name}</Text>
+        <Text style={styles.detailTime}>{parseTime(details.createTime)}</Text>
+        <View style={styles.detailIconContainer}>
+          {
+            isFavorite === false ? (
+              <TouchableOpacity
+                onPress={() => {
+                  addToFavorite(details.name);
+                  refreshMediaGrid();
+                  setIsFavorite(true);
+                }}
+              >
+                <Image
+                  source={FAVORITE}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => {
+                  removeFromFavorite(details.name);
+                  refreshMediaGrid();
+                  setIsFavorite(false);
+                }}
+              >
+                <Image
+                  source={FAVORITE_FILLED}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            )
+          }
+          <TouchableOpacity
+            onPress={() => {
+              deleteImg(details);
+              setIsDetailModal(false);
+              refreshMediaGrid();
+            }}
+          >
+            <Image
+              source={DELETE}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  </>
-);
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   modalPressable: { flex: 1 },

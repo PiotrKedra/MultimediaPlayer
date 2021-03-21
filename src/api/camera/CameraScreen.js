@@ -6,7 +6,7 @@ import { RNCamera } from 'react-native-camera';
 import { connect } from 'react-redux';
 import Text from '../custom-components/Text';
 import { BLACK } from '../../assets/values/colors';
-import { saveImage } from '../storage/storage';
+import { saveImage } from '../storage/imageStorage';
 import { refreshMedia } from '../redux/media/media.actions';
 import { BACK } from '../../assets/values/images';
 import {

@@ -2,6 +2,7 @@ const MENU = require('../images/icons/menu.png');
 const SEARCH = require('../images/icons/search.png');
 const EXPAND_ARROW = require('../images/icons/expand-arrow.png');
 const FAVORITE = require('../images/icons/favorite.png');
+const FAVORITE_FILLED = require('../images/icons/favorite-filled.png');
 const DELETE = require('../images/icons/delete.png');
 const BACK = require('../images/icons/back.png');
 const FILTER_LOMO_MAP = require('../images/filters/lomoMap.png');
@@ -21,6 +22,6 @@ export {
   MENU, SEARCH, EXPAND_ARROW, FAVORITE, DELETE, BACK, FILTER_LOMO_MAP,
   FILTER_VIGNETTE_MAP, FILTER_BRANNAN_BLOWOUT, FILTER_BRANNAN_CONTRAST,
   FILTER_BRANNAN_LUMA, FILTER_BRANNAN_PROCESS, FILTER_BRANNAN_SCREEN,
-  FILTER_EDGE_BURN, FILTER_HEFE_MAP, FILTER_HEFE_METAL,
+  FILTER_EDGE_BURN, FILTER_HEFE_MAP, FILTER_HEFE_METAL, FAVORITE_FILLED,
   FILTER_HEFE_SOFT_LIGHT, FILTER_INKWELL_MAPP,
 };

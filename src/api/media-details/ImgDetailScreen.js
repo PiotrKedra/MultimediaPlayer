@@ -4,15 +4,19 @@ import {
 } from 'react-native';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import { connect } from 'react-redux';
-import { BACK, DELETE, FAVORITE } from '../../assets/values/images';
+import {
+  BACK, DELETE, FAVORITE, FAVORITE_FILLED,
+} from '../../assets/values/images';
 import { ICON_SIZE, STD_MARGIN } from '../../assets/values/dimensions';
-import { deleteImg } from '../storage/storage';
+import { deleteImg } from '../storage/imageStorage';
 import { refreshMedia } from '../redux/media/media.actions';
 import { WHITE } from '../../assets/values/colors';
 import Text from '../custom-components/Text';
+import { addToFavorite, removeFromFavorite } from '../storage/imageFavoriteStorage';
 
 const ImgDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
   const { img } = route.params;
+  const [isFavorite, setIsFavorite] = React.useState(img.favorite);
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
@@ -39,14 +43,36 @@ const ImgDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
       </View>
 
       <View style={styles.bottomContainer}>
-        <TouchableOpacity
-          onPress={() => console.log('ADD TO FAVORITE')}
-        >
-          <Image
-            source={FAVORITE}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+        {
+          isFavorite === false ? (
+            <TouchableOpacity
+              onPress={() => {
+                addToFavorite(img.name);
+                refreshMediaGrid();
+                setIsFavorite(true);
+              }}
+            >
+              <Image
+                source={FAVORITE}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                removeFromFavorite(img.name);
+                refreshMediaGrid();
+                setIsFavorite(false);
+              }}
+            >
+              <Image
+                source={FAVORITE_FILLED}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          )
+        }
+
         <TouchableOpacity
           onPress={() => {
             deleteImg(img);

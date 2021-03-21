@@ -19,7 +19,7 @@ import Text from '../../custom-components/Text';
 import FilterSelector from './FilterSelector';
 import { DIR_FILE } from '../../../assets/values/directories';
 import { SAVE_TEXT } from '../../../assets/values/strings';
-import { saveImage } from '../../storage/storage';
+import { saveImage } from '../../storage/imageStorage';
 
 const FilterComponent = ({ navigation, img }) => {
   const [filter, setFilter] = useState('');

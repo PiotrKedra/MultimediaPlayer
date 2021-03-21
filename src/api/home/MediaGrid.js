@@ -3,7 +3,7 @@ import {
   View, StyleSheet, Image, FlatList, Dimensions, Pressable,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { getAllImages } from '../storage/storage';
+import { getAllImages } from '../storage/imageStorage';
 import { mediaRefreshed, setMediaQuantity } from '../redux/media/media.actions';
 import { SORT_NAME } from '../redux/media/sortConsts';
 
@@ -24,6 +24,7 @@ const MediaGrid = ({
     getAllImages().then((result) => {
       sortMedia(result);
       setMedia(result);
+      console.log(media);
       setMediaListLength(result.length);
     });
   };

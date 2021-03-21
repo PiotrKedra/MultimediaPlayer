@@ -1,6 +1,9 @@
 export const ALL = 'All';
 export const FILES = 'files';
 export const SAVE_TEXT = 'save';
+export const SORT_BY_TEXT = 'Sort by: ';
+export const AGE_TEXT = 'age';
+export const NAME_TEXT = 'name';
 export const SATURATION_TEXT = 'Saturation';
 export const INKWELL_TEXT = 'Inkwell';
 export const BRANNAN_TEXT = 'Brannan';

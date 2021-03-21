@@ -5,30 +5,41 @@ import {
 import { connect } from 'react-redux';
 import { getAllImages } from '../storage/storage';
 import { mediaRefreshed, setMediaQuantity } from '../redux/media/media.actions';
+import { SORT_NAME } from '../redux/media/sortConsts';
 
 const MAX_X_CORD = Dimensions.get('window').width * 0.6;
+const Y_SHIFT = 80;
 
 const MediaGrid = ({
-  navigation, shouldRefreshMedia, mediaGridRefreshed, setMediaListLength, showDetails,
+  navigation, globalProps, mediaGridRefreshed, setMediaListLength, showDetails,
 }) => {
   const [media, setMedia] = useState([]);
 
   useEffect(() => {
     loadMedia();
     mediaGridRefreshed();
-  }, [shouldRefreshMedia]);
+  }, [globalProps.shouldRefreshMedia, globalProps.sortBy]);
 
   const loadMedia = () => {
     getAllImages().then((result) => {
+      sortMedia(result);
       setMedia(result);
       setMediaListLength(result.length);
     });
   };
 
+  const sortMedia = (mediaList) => {
+    if (globalProps.sortBy === SORT_NAME) {
+      mediaList.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+      mediaList.sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
+    }
+  };
+
   const showDetailsModal = (nativeEvent, details) => {
     const style = {
       position: 'absolute',
-      top: nativeEvent.pageY - 80,
+      top: nativeEvent.pageY - Y_SHIFT,
       left: nativeEvent.pageX > MAX_X_CORD ? MAX_X_CORD : nativeEvent.pageX,
     };
     const detailsObject = {
@@ -75,7 +86,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  shouldRefreshMedia: state.shouldRefreshMedia,
+  globalProps: {
+    shouldRefreshMedia: state.shouldRefreshMedia,
+    sortBy: state.sortBy,
+  },
 });
 
 const mapDispatchToProps = (dispatch) => ({

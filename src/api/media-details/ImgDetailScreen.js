@@ -91,10 +91,7 @@ const ImgDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: WHITE,
-  },
+  container: { flex: 1, backgroundColor: WHITE },
   img: { width: 'auto', height: '100%', resizeMode: 'contain' },
   topContainer: {
     position: 'absolute',

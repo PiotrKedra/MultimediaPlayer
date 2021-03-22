@@ -24,7 +24,6 @@ const MediaGrid = ({
     getAllImages().then((result) => {
       sortMedia(result);
       setMedia(result);
-      console.log(media);
       setMediaListLength(result.length);
     });
   };

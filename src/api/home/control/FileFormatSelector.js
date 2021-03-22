@@ -4,6 +4,13 @@ import Text from '../../custom-components/Text';
 import {
   BLACK, LIGHT, PRIMARY, SECONDARY_TEXT,
 } from '../../../assets/values/colors';
+import {
+  FILE_SELECTOR_HEIGHT,
+  FILE_SELECTOR_WIDTH,
+  SMALL_BORDER_WIDTH,
+  STD_MARGIN,
+  TINY_MARGIN,
+} from '../../../assets/values/dimensions';
 
 const FileFormatSelector = () => (
   <View style={styles.container}>
@@ -18,24 +25,18 @@ const FileFormatSelector = () => (
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginTop: 24,
-    paddingLeft: 3,
-    paddingRight: 24,
+    paddingLeft: TINY_MARGIN,
+    paddingRight: STD_MARGIN,
     justifyContent: 'space-between',
-    borderBottomWidth: 1,
+    borderBottomWidth: SMALL_BORDER_WIDTH,
     borderColor: LIGHT,
   },
-  formatSelectedText: {
-    color: BLACK,
-  },
-  text: {
-    fontSize: 17,
-    color: SECONDARY_TEXT,
-  },
+  formatSelectedText: { color: BLACK },
+  text: { fontSize: 17, color: SECONDARY_TEXT },
   selected: {
     backgroundColor: PRIMARY,
-    width: 35,
-    height: 4,
+    width: FILE_SELECTOR_WIDTH,
+    height: FILE_SELECTOR_HEIGHT,
     position: 'absolute',
     left: 0,
     bottom: -2,

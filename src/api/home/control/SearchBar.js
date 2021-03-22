@@ -3,6 +3,13 @@ import { Image, View, StyleSheet } from 'react-native';
 import { SEARCH } from '../../../assets/values/images';
 import { BLACK, SECONDARY_TEXT } from '../../../assets/values/colors';
 import Text from '../../custom-components/Text';
+import {
+  BORDER_RADIUS,
+  SEARCH_ICON_SIZE,
+  SMALL_BORDER_WIDTH,
+  SMALL_MARGIN,
+  TINY_MARGIN,
+} from '../../../assets/values/dimensions';
 
 const SearchBar = () => (
   <View style={styles.bar}>
@@ -17,15 +24,15 @@ const SearchBar = () => (
 const styles = StyleSheet.create({
   bar: {
     flexDirection: 'row',
-    borderWidth: 1,
+    borderWidth: SMALL_BORDER_WIDTH,
     borderColor: BLACK,
-    borderRadius: 2,
-    paddingTop: 5,
-    paddingBottom: 8,
+    borderRadius: BORDER_RADIUS,
+    paddingTop: TINY_MARGIN,
+    paddingBottom: SMALL_MARGIN,
   },
   icon: {
-    width: 23,
-    height: 23,
+    width: SEARCH_ICON_SIZE,
+    height: SEARCH_ICON_SIZE,
     opacity: 0.6,
     marginHorizontal: 12,
     marginTop: 3,

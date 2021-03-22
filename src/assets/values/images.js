@@ -17,11 +17,12 @@ const FILTER_HEFE_MAP = require('../images/filters/hefeMap.png');
 const FILTER_HEFE_METAL = require('../images/filters/hefeMetal.png');
 const FILTER_HEFE_SOFT_LIGHT = require('../images/filters/hefeSoftLight.png');
 const FILTER_INKWELL_MAPP = require('../images/filters/inkwellMap.png');
+const CAMERA = require('../images/icons/camera.png');
 
 export {
   MENU, SEARCH, EXPAND_ARROW, FAVORITE, DELETE, BACK, FILTER_LOMO_MAP,
   FILTER_VIGNETTE_MAP, FILTER_BRANNAN_BLOWOUT, FILTER_BRANNAN_CONTRAST,
   FILTER_BRANNAN_LUMA, FILTER_BRANNAN_PROCESS, FILTER_BRANNAN_SCREEN,
   FILTER_EDGE_BURN, FILTER_HEFE_MAP, FILTER_HEFE_METAL, FAVORITE_FILLED,
-  FILTER_HEFE_SOFT_LIGHT, FILTER_INKWELL_MAPP,
+  FILTER_HEFE_SOFT_LIGHT, FILTER_INKWELL_MAPP, CAMERA,
 };

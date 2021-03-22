@@ -4,16 +4,15 @@ import {
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { connect } from 'react-redux';
-import Text from '../custom-components/Text';
 import { BLACK } from '../../assets/values/colors';
 import { saveImage } from '../storage/imageStorage';
 import { refreshMedia } from '../redux/media/media.actions';
-import { BACK } from '../../assets/values/images';
+import { BACK, CAMERA } from '../../assets/values/images';
 import {
+  BORDER_WIDTH,
   CAMERA_BUTTON_SIZE,
   ICON_SIZE,
   LARGE_MARGIN,
-  SMALL_BORDER_WIDTH,
   STD_MARGIN,
 } from '../../assets/values/dimensions';
 
@@ -57,7 +56,10 @@ const CameraScreen = ({ navigation, refreshMediaGrid }) => {
         onPress={() => takePicture()}
         style={styles.button}
       >
-        <Text>HEHE</Text>
+        <Image
+          source={CAMERA}
+          style={styles.icon}
+        />
       </TouchableOpacity>
     </RNCamera>
   );
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     height: CAMERA_BUTTON_SIZE,
     borderRadius: CAMERA_BUTTON_SIZE / 2,
     borderColor: BLACK,
-    borderWidth: SMALL_BORDER_WIDTH,
+    borderWidth: BORDER_WIDTH,
     marginBottom: LARGE_MARGIN,
     justifyContent: 'center',
     alignItems: 'center',

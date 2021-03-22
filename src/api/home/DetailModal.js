@@ -84,13 +84,8 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 6,
   },
-  detailText: {
-    fontSize: 14,
-  },
-  detailTime: {
-    fontSize: 13,
-    color: SECONDARY_TEXT,
-  },
+  detailText: { fontSize: 14 },
+  detailTime: { fontSize: 13, color: SECONDARY_TEXT },
   detailIconContainer: { flexDirection: 'row', justifyContent: 'flex-end' },
   icon: {
     width: SMALL_ICON_SIZE,

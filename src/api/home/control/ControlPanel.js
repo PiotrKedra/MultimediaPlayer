@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { STD_MARGIN } from '../../../assets/values/dimensions';
-import SearchBar from './SearchBar';
 import FileFormatSelector from './FileFormatSelector';
 import Text from '../../custom-components/Text';
 import { SECONDARY_TEXT } from '../../../assets/values/colors';
@@ -11,7 +10,6 @@ import { ALL, FILES } from '../../../assets/values/strings';
 
 const ControlPanel = ({ mediaQuantity }) => (
   <View style={styles.container}>
-    <SearchBar />
     <FileFormatSelector />
     <View style={styles.titleAndSortContainer}>
       <View style={styles.titleContainer}>

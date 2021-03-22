@@ -5,22 +5,21 @@ import {
 import {
   BLACK, PRIMARY, WHITE,
 } from '../../assets/values/colors';
-import { HOME_TOP_PADDING, STD_MARGIN } from '../../assets/values/dimensions';
+import {
+  ADD_BUTTON_RANGE_SHIFT, ADD_BUTTON_SIZE, HOME_TOP_PADDING, STD_MARGIN,
+} from '../../assets/values/dimensions';
 import ControlPanel from './control/ControlPanel';
 import Text from '../custom-components/Text';
 import MediaGrid from './MediaGrid';
-import { DIR_HOME, DIR_IMAGES } from '../../assets/values/directories';
 import DetailModal from './DetailModal';
-
-const RNFS = require('react-native-fs');
+import init from '../appInit';
 
 const HomeScreen = ({ navigation }) => {
   const [isDetailModal, setIsDetailModal] = useState(false);
   const [details, setDetails] = useState({});
 
   React.useEffect(() => {
-    RNFS.mkdir(DIR_HOME).then(() => console.log('git')).catch(() => console.log('dupa'));
-    RNFS.mkdir(DIR_IMAGES).then(() => console.log('git2')).catch(() => console.log('dupa2'));
+    init();
   }, []);
 
   const showDetails = (detailObject) => {
@@ -54,18 +53,14 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: WHITE,
-    paddingTop: HOME_TOP_PADDING,
-  },
+  container: { flex: 1, backgroundColor: WHITE, paddingTop: HOME_TOP_PADDING },
   addButton: {
     position: 'absolute',
     right: STD_MARGIN,
     bottom: STD_MARGIN,
-    width: 80,
-    height: 80,
-    borderRadius: 35,
+    width: ADD_BUTTON_SIZE,
+    height: ADD_BUTTON_SIZE,
+    borderRadius: (ADD_BUTTON_SIZE / 2) - ADD_BUTTON_RANGE_SHIFT,
     backgroundColor: PRIMARY,
     justifyContent: 'center',
     alignItems: 'center',

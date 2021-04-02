@@ -7,6 +7,8 @@ import CameraScreen from '../camera/CameraScreen';
 import ImgTakenScreen from '../camera/ImgTakenScreen';
 import ImgDetailScreen from '../media-details/ImgDetailScreen';
 import { SMALL_ICON_SIZE, SMALL_MARGIN } from '../../assets/values/dimensions';
+import VideoScreen from '../video/VideoScreen';
+import VideoDetailScreen from '../media-details/VideoDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -14,8 +16,10 @@ const Navigator = () => (
   <Stack.Navigator>
     {addHomeScreen()}
     {addCameraScreen()}
+    {addVideoScreen()}
     {addImgTakenScreen()}
     {addImgDetailsScreen()}
+    {addVideoDetailsScreen()}
   </Stack.Navigator>
 );
 
@@ -56,6 +60,16 @@ function addCameraScreen() {
   );
 }
 
+function addVideoScreen() {
+  return (
+    <Stack.Screen
+      name="VideoScreen"
+      component={VideoScreen}
+      options={{ headerShown: false }}
+    />
+  );
+}
+
 function addImgTakenScreen() {
   return (
     <Stack.Screen
@@ -71,6 +85,16 @@ function addImgDetailsScreen() {
     <Stack.Screen
       name="ImgDetailScreen"
       component={ImgDetailScreen}
+      options={{ headerShown: false }}
+    />
+  );
+}
+
+function addVideoDetailsScreen() {
+  return (
+    <Stack.Screen
+      name="VideoDetailScreen"
+      component={VideoDetailScreen}
       options={{ headerShown: false }}
     />
   );

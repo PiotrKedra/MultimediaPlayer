@@ -13,10 +13,12 @@ import Text from '../custom-components/Text';
 import MediaGrid from './MediaGrid';
 import DetailModal from './DetailModal';
 import init from '../appInit';
+import CreateMediaModal from './CreateMediaModal';
 
 const HomeScreen = ({ navigation }) => {
   const [isDetailModal, setIsDetailModal] = useState(false);
   const [details, setDetails] = useState({});
+  const [isCreateMediaModal, setIsCreateMediaModal] = useState(false);
 
   React.useEffect(() => {
     init();
@@ -37,9 +39,23 @@ const HomeScreen = ({ navigation }) => {
         setIsDetailModal={setIsDetailModal}
         showDetails={showDetails}
       />
-      <Pressable onPress={() => navigation.navigate('CameraScreen')} style={styles.addButton}>
-        <Text style={styles.textButton}>+</Text>
-      </Pressable>
+      {
+        !isCreateMediaModal
+        && (
+          <Pressable onPress={() => setIsCreateMediaModal(true)} style={styles.addButton}>
+            <Text style={styles.textButton}>+</Text>
+          </Pressable>
+        )
+      }
+      {
+        isCreateMediaModal
+        && (
+          <CreateMediaModal
+            navigation={navigation}
+            closeModal={() => setIsCreateMediaModal(false)}
+          />
+        )
+      }
       {
         isDetailModal
         && (
@@ -68,6 +84,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 10,
     elevation: 6,
+    zIndex: 1,
   },
   textButton: {
     fontSize: 30,

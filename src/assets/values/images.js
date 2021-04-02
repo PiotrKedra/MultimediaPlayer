@@ -18,11 +18,18 @@ const FILTER_HEFE_METAL = require('../images/filters/hefeMetal.png');
 const FILTER_HEFE_SOFT_LIGHT = require('../images/filters/hefeSoftLight.png');
 const FILTER_INKWELL_MAPP = require('../images/filters/inkwellMap.png');
 const CAMERA = require('../images/icons/camera.png');
+const CLOSE = require('../images/icons/close.png');
+const PLAY = require('../images/icons/play.png');
+const STOP = require('../images/icons/stop.png');
+const RECORD_ON = require('../images/icons/recordOn.png');
+const PLAY_PLAYER = require('../images/icons/playPlayer.png');
+const PAUSE_PLAYER = require('../images/icons/pausePlayer.png');
 
 export {
   MENU, SEARCH, EXPAND_ARROW, FAVORITE, DELETE, BACK, FILTER_LOMO_MAP,
   FILTER_VIGNETTE_MAP, FILTER_BRANNAN_BLOWOUT, FILTER_BRANNAN_CONTRAST,
   FILTER_BRANNAN_LUMA, FILTER_BRANNAN_PROCESS, FILTER_BRANNAN_SCREEN,
   FILTER_EDGE_BURN, FILTER_HEFE_MAP, FILTER_HEFE_METAL, FAVORITE_FILLED,
-  FILTER_HEFE_SOFT_LIGHT, FILTER_INKWELL_MAPP, CAMERA,
+  FILTER_HEFE_SOFT_LIGHT, FILTER_INKWELL_MAPP, CAMERA, CLOSE, PLAY, STOP,
+  RECORD_ON, PAUSE_PLAYER, PLAY_PLAYER,
 };

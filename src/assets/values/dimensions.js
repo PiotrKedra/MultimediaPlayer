@@ -21,3 +21,4 @@ export const CAMERA_BUTTON_SIZE = 80;
 export const SORT_SELECTOR_WIDTH = 100;
 export const SORT_SELECTOR_HEIGHT = 90;
 export const SORT_SELECTOR_SHIFT = 10;
+export const RECORD_ICON = 60;

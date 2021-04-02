@@ -1,9 +1,6 @@
-const WHITE = '#fff';
-const BLACK = '#000';
-const PRIMARY = '#FFAF65';
-const SECONDARY_TEXT = '#6F6F6F';
-const LIGHT = '#EEEEEE';
-
-export {
-  WHITE, BLACK, PRIMARY, SECONDARY_TEXT, LIGHT,
-};
+export const WHITE = '#fff';
+export const BLACK = '#000';
+export const PRIMARY = '#FFAF65';
+export const SECONDARY_TEXT = '#6F6F6F';
+export const LIGHT = '#EEEEEE';
+export const MODAL_BACKGROUND = 'rgba(0,0,0,0.1)';

@@ -3,9 +3,10 @@ import {
   View, StyleSheet, Image, FlatList, Dimensions, Pressable,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { getAllImages } from '../storage/imageStorage';
 import { mediaRefreshed, setMediaQuantity } from '../redux/media/media.actions';
 import { SORT_NAME } from '../redux/media/sortConsts';
+import getAllMedia from '../storage/mediaStorage';
+import { IMAGE_TYPE, VIDEO_TYPE } from '../storage/mediaConsts';
 
 const MAX_X_CORD = Dimensions.get('window').width * 0.6;
 const Y_SHIFT = 80;
@@ -21,7 +22,7 @@ const MediaGrid = ({
   }, [globalProps.shouldRefreshMedia, globalProps.sortBy]);
 
   const loadMedia = () => {
-    getAllImages().then((result) => {
+    getAllMedia().then((result) => {
       sortMedia(result);
       setMedia(result);
       setMediaListLength(result.length);
@@ -49,11 +50,10 @@ const MediaGrid = ({
     showDetails(detailsObject);
   };
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={media}
-        renderItem={({ item }) => (
+  const displayItem = (item) => {
+    switch (item.type) {
+      case IMAGE_TYPE:
+        return (
           <Pressable
             onPress={() => navigation.navigate('ImgDetailScreen', { img: item })}
             onLongPress={({ nativeEvent }) => showDetailsModal(nativeEvent, item)}
@@ -63,7 +63,29 @@ const MediaGrid = ({
               source={item.path}
             />
           </Pressable>
-        )}
+        );
+      case VIDEO_TYPE:
+        return (
+          <Pressable
+            onPress={() => navigation.navigate('VideoDetailScreen', { video: item })}
+            onLongPress={({ nativeEvent }) => showDetailsModal(nativeEvent, item)}
+          >
+            <Image
+              style={styles.imageThumbnail}
+              source={item.path}
+            />
+          </Pressable>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={media}
+        renderItem={({ item }) => displayItem(item)}
         numColumns={3}
         keyExtractor={(item, index) => index}
       />

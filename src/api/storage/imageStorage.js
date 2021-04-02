@@ -1,12 +1,14 @@
 import { DIR_FILE, DIR_IMAGES } from '../../assets/values/directories';
-import { getAllFavoriteImages } from './imageFavoriteStorage';
+import { getAllFavoriteImages, removeFromFavorite } from './imageFavoriteStorage';
+import map from './mapper';
+import { IMAGE_TYPE } from './mediaConsts';
 
 const RNFS = require('react-native-fs');
 const moment = require('moment');
 
 const saveImage = async (filePath) => {
   try {
-    const newImageName = `${moment().format('DDMMYY_HHmmSSS')}.jpg`;
+    const newImageName = `i${moment().format('DDMMYY_HHmmSSS')}.jpg`;
     const newFilepath = `${DIR_IMAGES}/${newImageName}`;
     await RNFS.mkdir(DIR_IMAGES);
     await RNFS.moveFile(filePath, newFilepath);
@@ -21,26 +23,15 @@ const getAllImages = async () => {
   try {
     const images = await RNFS.readDir(path);
     const favorites = await getAllFavoriteImages();
-    return images.map((img) => mapImgObject(img, favorites));
+    return images.map((img) => map(img, IMAGE_TYPE, favorites));
   } catch (error) {
     return [];
   }
 };
 
-function isFavorite(favorites, img) {
-  return favorites.includes(img.name);
-}
-
-const mapImgObject = (img, favorites) => ({
-  createTime: img.mtime.toString(),
-  path: { uri: `${DIR_FILE}${img.path}` },
-  name: img.name,
-  favorite: isFavorite(favorites, img),
-});
-
 const deleteImg = (img) => {
   RNFS.unlink(img.path.uri)
-    .then(() => console.log('deleted file'))
+    .then(() => removeFromFavorite(img.name))
     .catch((e) => console.log(e));
 };
 

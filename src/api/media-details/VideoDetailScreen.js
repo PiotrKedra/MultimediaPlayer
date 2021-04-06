@@ -14,6 +14,10 @@ import {
   ICON_SIZE, STD_MARGIN,
 } from '../../assets/values/dimensions';
 import MediaController from './MediaController';
+import { addToFavorite, removeFromFavorite } from '../storage/favoriteStorage';
+import { deleteMedia } from '../storage/mediaStorage';
+
+const SEEK_TIME = 5;
 
 const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
   const { video } = route.params;
@@ -32,23 +36,23 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
 
   const moveForward = () => {
     if (player.current === null) return;
-    if (currentTime + 5 > videoTime) {
+    if (currentTime + SEEK_TIME > videoTime) {
       player.current.seek(videoTime);
       setCurrentTime(videoTime);
     } else {
-      player.current.seek(currentTime + 5);
-      setCurrentTime(currentTime + 5);
+      player.current.seek(currentTime + SEEK_TIME);
+      setCurrentTime(currentTime + SEEK_TIME);
     }
   };
 
   const moveBackward = () => {
     if (player.current === null) return;
-    if (currentTime < 5) {
+    if (currentTime < SEEK_TIME) {
       player.current.seek(0);
       setCurrentTime(0);
     } else {
-      player.current.seek(currentTime - 5);
-      setCurrentTime(currentTime - 5);
+      player.current.seek(currentTime - SEEK_TIME);
+      setCurrentTime(currentTime - SEEK_TIME);
     }
   };
 
@@ -101,7 +105,7 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
             isFavorite === false ? (
               <TouchableOpacity
                 onPress={() => {
-                  // addToFavorite(img.name);
+                  addToFavorite(video.name, video.type);
                   refreshMediaGrid();
                   setIsFavorite(true);
                 }}
@@ -114,7 +118,7 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
             ) : (
               <TouchableOpacity
                 onPress={() => {
-                  // removeFromFavorite(img.name);
+                  removeFromFavorite(video.name, video.type);
                   refreshMediaGrid();
                   setIsFavorite(false);
                 }}
@@ -129,7 +133,7 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
 
           <TouchableOpacity
             onPress={() => {
-              // deleteImg(img);
+              deleteMedia(video);
               refreshMediaGrid();
               navigation.goBack();
             }}

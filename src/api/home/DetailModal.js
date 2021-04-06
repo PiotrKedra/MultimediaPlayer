@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import Text from '../custom-components/Text';
 import parseTime from '../utility/timeParser';
 import { DELETE, FAVORITE, FAVORITE_FILLED } from '../../assets/values/images';
-import { deleteImg } from '../storage/imageStorage';
 import { BLACK, SECONDARY_TEXT, WHITE } from '../../assets/values/colors';
 import {
   SMALL_BORDER_WIDTH, SMALL_ICON_SIZE, SMALL_MARGIN, TINY_MARGIN,
 } from '../../assets/values/dimensions';
 import { refreshMedia } from '../redux/media/media.actions';
-import { addToFavorite, removeFromFavorite } from '../storage/imageFavoriteStorage';
+import { addToFavorite, removeFromFavorite } from '../storage/favoriteStorage';
+import { deleteMedia } from '../storage/mediaStorage';
 
 const DetailModal = ({ setIsDetailModal, details, refreshMediaGrid }) => {
   const [isFavorite, setIsFavorite] = React.useState(details.favorite);
@@ -27,7 +27,7 @@ const DetailModal = ({ setIsDetailModal, details, refreshMediaGrid }) => {
             isFavorite === false ? (
               <TouchableOpacity
                 onPress={() => {
-                  addToFavorite(details.name);
+                  addToFavorite(details.name, details.type);
                   refreshMediaGrid();
                   setIsFavorite(true);
                 }}
@@ -40,7 +40,7 @@ const DetailModal = ({ setIsDetailModal, details, refreshMediaGrid }) => {
             ) : (
               <TouchableOpacity
                 onPress={() => {
-                  removeFromFavorite(details.name);
+                  removeFromFavorite(details.name, details.type);
                   refreshMediaGrid();
                   setIsFavorite(false);
                 }}
@@ -54,7 +54,7 @@ const DetailModal = ({ setIsDetailModal, details, refreshMediaGrid }) => {
           }
           <TouchableOpacity
             onPress={() => {
-              deleteImg(details);
+              deleteMedia(details);
               setIsDetailModal(false);
               refreshMediaGrid();
             }}

@@ -1,6 +1,7 @@
 import { DIR_FILE, DIR_VIDEOS } from '../../assets/values/directories';
-import map from './mapper';
+import map from './mediaObjectMapper';
 import { VIDEO_TYPE } from './mediaConsts';
+import { getAllFavoriteMediaByType, removeFromFavorite } from './favoriteStorage';
 
 const RNFS = require('react-native-fs');
 const moment = require('moment');
@@ -21,15 +22,15 @@ export const getAllVideos = async () => {
   const path = `${DIR_FILE}${DIR_VIDEOS}`;
   try {
     const videos = await RNFS.readDir(path);
-    return videos.map((video) => map(video, VIDEO_TYPE, []));
+    const favorites = await getAllFavoriteMediaByType(VIDEO_TYPE);
+    return videos.map((video) => map(video, VIDEO_TYPE, favorites));
   } catch (error) {
     return [];
   }
 };
 
-// const mapImgObject = (img, favorites) => ({
-//   createTime: img.mtime.toString(),
-//   path: { uri: `${DIR_FILE}${img.path}` },
-//   name: img.name,
-//   favorite: isFavorite(favorites, img),
-// });
+export const deleteVideo = (video) => {
+  RNFS.unlink(video.path.uri)
+    .then(() => removeFromFavorite(video.name, VIDEO_TYPE))
+    .catch((e) => console.log(e));
+};

@@ -8,11 +8,11 @@ import {
   BACK, DELETE, FAVORITE, FAVORITE_FILLED,
 } from '../../assets/values/images';
 import { ICON_SIZE, STD_MARGIN } from '../../assets/values/dimensions';
-import { deleteImg } from '../storage/imageStorage';
 import { refreshMedia } from '../redux/media/media.actions';
 import { WHITE } from '../../assets/values/colors';
 import Text from '../custom-components/Text';
-import { addToFavorite, removeFromFavorite } from '../storage/imageFavoriteStorage';
+import { addToFavorite, removeFromFavorite } from '../storage/favoriteStorage';
+import { deleteMedia } from '../storage/mediaStorage';
 
 const ImgDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
   const { img } = route.params;
@@ -47,7 +47,7 @@ const ImgDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
           isFavorite === false ? (
             <TouchableOpacity
               onPress={() => {
-                addToFavorite(img.name);
+                addToFavorite(img.name, img.type);
                 refreshMediaGrid();
                 setIsFavorite(true);
               }}
@@ -60,7 +60,7 @@ const ImgDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
           ) : (
             <TouchableOpacity
               onPress={() => {
-                removeFromFavorite(img.name);
+                removeFromFavorite(img.name, img.type);
                 refreshMediaGrid();
                 setIsFavorite(false);
               }}
@@ -75,7 +75,7 @@ const ImgDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
 
         <TouchableOpacity
           onPress={() => {
-            deleteImg(img);
+            deleteMedia(img);
             refreshMediaGrid();
             navigation.goBack();
           }}

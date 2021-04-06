@@ -61,7 +61,7 @@ const MediaGrid = ({
             onLongPress={({ nativeEvent }) => showDetailsModal(nativeEvent, item)}
           >
             <Image
-              style={styles.imageThumbnail}
+              style={styles.mediaThumbnail}
               source={item.path}
             />
           </Pressable>
@@ -73,7 +73,7 @@ const MediaGrid = ({
             onLongPress={({ nativeEvent }) => showDetailsModal(nativeEvent, item)}
           >
             <Image
-              style={styles.imageThumbnail}
+              style={styles.mediaThumbnail}
               source={item.path}
             />
             <View style={styles.movieIconContainer}>

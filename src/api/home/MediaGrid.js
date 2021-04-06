@@ -7,6 +7,8 @@ import { mediaRefreshed, setMediaQuantity } from '../redux/media/media.actions';
 import { SORT_NAME } from '../redux/media/sortConsts';
 import getAllMedia from '../storage/mediaStorage';
 import { IMAGE_TYPE, VIDEO_TYPE } from '../storage/mediaConsts';
+import { VIDEO } from '../../assets/values/images';
+import { MARGIN_TWO, MEDIA_GRID_MARGIN } from '../../assets/values/dimensions';
 
 const MAX_X_CORD = Dimensions.get('window').width * 0.6;
 const Y_SHIFT = 80;
@@ -74,6 +76,9 @@ const MediaGrid = ({
               style={styles.imageThumbnail}
               source={item.path}
             />
+            <View style={styles.movieIconContainer}>
+              <Image source={VIDEO} style={styles.icon} />
+            </View>
           </Pressable>
         );
       default:
@@ -96,15 +101,19 @@ const MediaGrid = ({
 const imgSize = (Dimensions.get('window').width / 3) - 4;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginRight: 3 },
-  imageThumbnail: {
+  container: { flex: 1, marginRight: MEDIA_GRID_MARGIN },
+  mediaThumbnail: {
     justifyContent: 'center',
     alignItems: 'center',
     height: imgSize,
     width: imgSize,
-    marginLeft: 3,
-    marginBottom: 2,
+    marginLeft: MEDIA_GRID_MARGIN,
+    marginBottom: MARGIN_TWO,
   },
+  movieIconContainer: {
+    position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, justifyContent: 'center', alignItems: 'center',
+  },
+  icon: { opacity: 0.8 },
 });
 
 const mapStateToProps = (state) => ({

@@ -24,6 +24,9 @@ const STOP = require('../images/icons/stop.png');
 const RECORD_ON = require('../images/icons/recordOn.png');
 const PLAY_PLAYER = require('../images/icons/playPlayer.png');
 const PAUSE_PLAYER = require('../images/icons/pausePlayer.png');
+const FORWARD = require('../images/icons/forward.png');
+const BACKWARD = require('../images/icons/backward.png');
+const VIDEO = require('../images/icons/video.png');
 
 export {
   MENU, SEARCH, EXPAND_ARROW, FAVORITE, DELETE, BACK, FILTER_LOMO_MAP,
@@ -31,5 +34,5 @@ export {
   FILTER_BRANNAN_LUMA, FILTER_BRANNAN_PROCESS, FILTER_BRANNAN_SCREEN,
   FILTER_EDGE_BURN, FILTER_HEFE_MAP, FILTER_HEFE_METAL, FAVORITE_FILLED,
   FILTER_HEFE_SOFT_LIGHT, FILTER_INKWELL_MAPP, CAMERA, CLOSE, PLAY, STOP,
-  RECORD_ON, PAUSE_PLAYER, PLAY_PLAYER,
+  RECORD_ON, PAUSE_PLAYER, PLAY_PLAYER, FORWARD, BACKWARD, VIDEO,
 };

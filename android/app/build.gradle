@@ -193,6 +193,9 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    compile project(':react-native-video')
+    implementation "androidx.appcompat:appcompat:1.0.0"
+
     addUnimodulesDependencies()
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {

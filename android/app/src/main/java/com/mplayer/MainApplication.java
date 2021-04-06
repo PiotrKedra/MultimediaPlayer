@@ -1,6 +1,7 @@
 package com.mplayer;
 
 import com.mplayer.generated.BasePackageList;
+import com.brentvatne.react.ReactVideoPackage;
 
 import android.app.Application;
 import android.content.Context;
@@ -39,6 +40,9 @@ public class MainApplication extends Application implements ReactApplication {
                   new ModuleRegistryAdapter(mModuleRegistryProvider)
           );
           packages.addAll(unimodules);
+
+          List<ReactPackage> rnvideos = Arrays.asList(new ReactVideoPackage());
+          packages.addAll(rnvideos);
           return packages;
         }
 

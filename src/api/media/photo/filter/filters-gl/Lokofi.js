@@ -1,7 +1,7 @@
 import React from 'react';
 import { Shaders, Node } from 'gl-react';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
-import { FILTER_LOMO_MAP, FILTER_VIGNETTE_MAP } from '../../../../assets/values/images';
+import { FILTER_LOMO_MAP, FILTER_VIGNETTE_MAP } from '../../../../../assets/values/images';
 
 const shaders = Shaders.create({
   Lokofi: {

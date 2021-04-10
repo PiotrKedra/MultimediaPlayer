@@ -3,12 +3,13 @@ import { Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../home/HomeScreen';
 import { MENU } from '../../assets/values/images';
-import CameraScreen from '../camera/CameraScreen';
-import ImgTakenScreen from '../camera/ImgTakenScreen';
+import CameraScreen from '../media/photo/PhotoScreen';
+import ImgTakenScreen from '../media/photo/ImgTakenScreen';
 import ImgDetailScreen from '../media-details/ImgDetailScreen';
 import { SMALL_ICON_SIZE, SMALL_MARGIN } from '../../assets/values/dimensions';
-import VideoScreen from '../video/VideoScreen';
-import VideoDetailScreen from '../media-details/VideoDetailScreen';
+import VideoScreen from '../media/video/VideoScreen';
+import PlayerDetailScreen from '../media-details/PlayerDetailScreen';
+import AudioScreen from '../media/audio/AudioScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ const Navigator = () => (
     {addHomeScreen()}
     {addCameraScreen()}
     {addVideoScreen()}
+    {addAudioScreen()}
     {addImgTakenScreen()}
     {addImgDetailsScreen()}
     {addVideoDetailsScreen()}
@@ -70,6 +72,16 @@ function addVideoScreen() {
   );
 }
 
+function addAudioScreen() {
+  return (
+    <Stack.Screen
+      name="AudioScreen"
+      component={AudioScreen}
+      options={{ headerShown: false }}
+    />
+  );
+}
+
 function addImgTakenScreen() {
   return (
     <Stack.Screen
@@ -93,8 +105,8 @@ function addImgDetailsScreen() {
 function addVideoDetailsScreen() {
   return (
     <Stack.Screen
-      name="VideoDetailScreen"
-      component={VideoDetailScreen}
+      name="PlayerDetailScreen"
+      component={PlayerDetailScreen}
       options={{ headerShown: false }}
     />
   );

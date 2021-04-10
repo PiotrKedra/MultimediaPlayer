@@ -2,9 +2,9 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Surface } from 'gl-react-native/lib';
 import GLImage from '../filters-gl/GLImage';
-import Text from '../../../custom-components/Text';
+import Text from '../../../../custom-components/Text';
 import { NEGATIVE } from '../filterConsts';
-import { NEGATIVE_TEXT } from '../../../../assets/values/strings';
+import { NEGATIVE_TEXT } from '../../../../../assets/values/strings';
 import styles from './selectorStyles';
 import Negative from '../filters-gl/Negative';
 

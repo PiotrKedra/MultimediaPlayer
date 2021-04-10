@@ -6,7 +6,7 @@ import {
   FILTER_HEFE_MAP,
   FILTER_HEFE_METAL,
   FILTER_HEFE_SOFT_LIGHT,
-} from '../../../../assets/values/images';
+} from '../../../../../assets/values/images';
 
 const shaders = Shaders.create({
   Hefe: {

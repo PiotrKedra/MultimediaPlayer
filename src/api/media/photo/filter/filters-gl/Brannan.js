@@ -4,7 +4,7 @@ import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 import {
   FILTER_BRANNAN_BLOWOUT, FILTER_BRANNAN_CONTRAST, FILTER_BRANNAN_LUMA,
   FILTER_BRANNAN_PROCESS, FILTER_BRANNAN_SCREEN,
-} from '../../../../assets/values/images';
+} from '../../../../../assets/values/images';
 
 const shaders = Shaders.create({
   Brannan: {

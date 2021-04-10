@@ -1,15 +1,18 @@
 import React from 'react';
 import {
-  View, StyleSheet, Pressable, Image, TouchableOpacity,
+  StyleSheet, Pressable, Image, TouchableOpacity,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   BACKWARD, FORWARD, PAUSE_PLAYER, PLAY_PLAYER,
 } from '../../assets/values/images';
-import { BLACK, PRIMARY } from '../../assets/values/colors';
+import {
+  BLACK, PRIMARY, WHITE_GRADIENT_END, WHITE_GRADIENT_START,
+} from '../../assets/values/colors';
 import Text from '../custom-components/Text';
 import {
-  ICON_SIZE, SMALL_ICON_SIZE, STD_MARGIN, TINY_MARGIN,
+  ICON_SIZE, LARGE_MARGIN, SMALL_ICON_SIZE, STD_MARGIN, TINY_MARGIN,
 } from '../../assets/values/dimensions';
 
 const NORMAL_SPEED_RATE = 1.0;
@@ -17,7 +20,7 @@ const SPEED_RATE_1_5 = 1.5;
 const SPEED_RATE_2_0 = 2.0;
 
 const MediaController = ({
-  stopVideo,
+  playOrResumeVideo,
   paused,
   moveBackward,
   moveForward,
@@ -50,14 +53,17 @@ const MediaController = ({
   };
 
   return (
-    <View style={styles.playerControl}>
+    <LinearGradient
+      colors={[WHITE_GRADIENT_START, WHITE_GRADIENT_END]}
+      style={styles.playerControl}
+    >
       <Pressable style={styles.itemContainer} onPress={() => moveBackward()}>
         <Image source={BACKWARD} style={styles.moveTimeIcon} />
       </Pressable>
       <Pressable style={styles.itemContainer} onPress={() => moveForward()}>
         <Image source={FORWARD} style={styles.moveTimeIcon} />
       </Pressable>
-      <Pressable style={styles.itemContainer} onPress={() => stopVideo()}>
+      <Pressable style={styles.itemContainer} onPress={() => playOrResumeVideo()}>
         {
           paused === true
             ? <Image source={PLAY_PLAYER} style={styles.playerIcon} />
@@ -79,13 +85,21 @@ const MediaController = ({
       <TouchableOpacity style={styles.speedRateContainer} onPress={() => changeSpeedRate()}>
         <Text numberOfLines={1} style={styles.speedRate}>{`${speedRate}x`}</Text>
       </TouchableOpacity>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   playerControl: {
-    position: 'absolute', left: 0, bottom: 0, width: '100%', flexDirection: 'row', padding: STD_MARGIN, alignItems: 'center',
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    width: '100%',
+    flexDirection: 'row',
+    padding: STD_MARGIN,
+    paddingTop: 2 * LARGE_MARGIN,
+    alignItems: 'center',
+    // backgroundColor: 'rgba(255,255,255,0.2)',
   },
   moveTimeIcon: { width: SMALL_ICON_SIZE, height: SMALL_ICON_SIZE, marginRight: TINY_MARGIN },
   icon: { width: ICON_SIZE, height: ICON_SIZE, marginLeft: STD_MARGIN },

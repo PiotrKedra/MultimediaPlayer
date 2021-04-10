@@ -6,11 +6,16 @@ import { connect } from 'react-redux';
 import { mediaRefreshed, setMediaQuantity } from '../redux/media/media.actions';
 import { SORT_NAME } from '../redux/media/sortConsts';
 import getAllMedia from '../storage/mediaStorage';
-import { IMAGE_TYPE, VIDEO_TYPE } from '../storage/mediaConsts';
-import { VIDEO } from '../../assets/values/images';
-import { MARGIN_TWO, MEDIA_GRID_MARGIN } from '../../assets/values/dimensions';
+import { AUDIO_TYPE, IMAGE_TYPE, VIDEO_TYPE } from '../storage/mediaConsts';
+import { AUDIO_FILE, VIDEO } from '../../assets/values/images';
+import {
+  ICON_SIZE,
+  LARGE_MARGIN, MARGIN_TWO, MEDIA_GRID_MARGIN, SMALL_MARGIN,
+} from '../../assets/values/dimensions';
+import { GRAY, WHITE_GRADIENT_END } from '../../assets/values/colors';
+import Text from '../custom-components/Text';
 
-const MAX_X_CORD = Dimensions.get('window').width * 0.6;
+const MAX_X_CORD = Dimensions.get('window').width * 0.5;
 const Y_SHIFT = 80;
 
 const MediaGrid = ({
@@ -69,7 +74,7 @@ const MediaGrid = ({
       case VIDEO_TYPE:
         return (
           <Pressable
-            onPress={() => navigation.navigate('VideoDetailScreen', { video: item })}
+            onPress={() => navigation.navigate('PlayerDetailScreen', { video: item })}
             onLongPress={({ nativeEvent }) => showDetailsModal(nativeEvent, item)}
           >
             <Image
@@ -77,8 +82,21 @@ const MediaGrid = ({
               source={item.path}
             />
             <View style={styles.movieIconContainer}>
-              <Image source={VIDEO} style={styles.icon} />
+              <View style={styles.iconBackground}>
+                <Image source={VIDEO} style={styles.icon} />
+              </View>
             </View>
+          </Pressable>
+        );
+      case AUDIO_TYPE:
+        return (
+          <Pressable
+            onPress={() => navigation.navigate('PlayerDetailScreen', { video: item })}
+            onLongPress={({ nativeEvent }) => showDetailsModal(nativeEvent, item)}
+            style={styles.audioItem}
+          >
+            <Image source={AUDIO_FILE} style={styles.icon} />
+            <Text numberOfLines={1}>{item.name}</Text>
           </Pressable>
         );
       default:
@@ -113,7 +131,19 @@ const styles = StyleSheet.create({
   movieIconContainer: {
     position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, justifyContent: 'center', alignItems: 'center',
   },
-  icon: { opacity: 0.8 },
+  audioItem: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: imgSize,
+    width: imgSize,
+    backgroundColor: GRAY,
+    marginLeft: MEDIA_GRID_MARGIN,
+    marginBottom: MARGIN_TWO,
+  },
+  iconBackground: {
+    padding: SMALL_MARGIN, borderRadius: LARGE_MARGIN, backgroundColor: WHITE_GRADIENT_END,
+  },
+  icon: { width: ICON_SIZE, height: ICON_SIZE, opacity: 0.8 },
 });
 
 const mapStateToProps = (state) => ({

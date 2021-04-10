@@ -4,7 +4,7 @@ import {
   FILTER_SELECTOR_WIDTH,
   MARGIN_ONE,
   SMALL_MARGIN,
-} from '../../../../assets/values/dimensions';
+} from '../../../../../assets/values/dimensions';
 
 export default StyleSheet.create({
   filterContainer: { padding: SMALL_MARGIN, alignItems: 'center' },

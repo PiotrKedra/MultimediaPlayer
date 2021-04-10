@@ -2,9 +2,9 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Surface } from 'gl-react-native/lib';
 import GLImage from '../filters-gl/GLImage';
-import Text from '../../../custom-components/Text';
+import Text from '../../../../custom-components/Text';
 import { BRANNAN } from '../filterConsts';
-import { BRANNAN_TEXT } from '../../../../assets/values/strings';
+import { BRANNAN_TEXT } from '../../../../../assets/values/strings';
 import styles from './selectorStyles';
 import Brannan from '../filters-gl/Brannan';
 

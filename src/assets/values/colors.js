@@ -4,3 +4,7 @@ export const PRIMARY = '#FFAF65';
 export const SECONDARY_TEXT = '#6F6F6F';
 export const LIGHT = '#EEEEEE';
 export const MODAL_BACKGROUND = 'rgba(0,0,0,0.1)';
+export const WHITE_GRADIENT_START = 'rgba(255, 255, 255, 0)';
+export const WHITE_GRADIENT_END = 'rgba(255, 255, 255, 0.6)';
+export const GRAY = '#ccc';
+export const DARK_GRAY = '#aaa';

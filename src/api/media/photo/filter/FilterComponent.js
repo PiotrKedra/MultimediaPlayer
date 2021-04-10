@@ -13,13 +13,13 @@ import Inkwell from './filters-gl/Inkwell';
 import {
   BRANNAN, HEFE, INKWELL, LOKOFI, NEGATIVE, SATURATION,
 } from './filterConsts';
-import { BACK } from '../../../assets/values/images';
-import { ICON_SIZE, STD_MARGIN } from '../../../assets/values/dimensions';
-import Text from '../../custom-components/Text';
+import { BACK } from '../../../../assets/values/images';
+import { ICON_SIZE, STD_MARGIN } from '../../../../assets/values/dimensions';
+import Text from '../../../custom-components/Text';
 import FilterSelector from './FilterSelector';
-import { DIR_FILE } from '../../../assets/values/directories';
-import { SAVE_TEXT } from '../../../assets/values/strings';
-import { saveImage } from '../../storage/imageStorage';
+import { DIR_FILE } from '../../../../assets/values/directories';
+import { SAVE_TEXT } from '../../../../assets/values/strings';
+import { saveImage } from '../../../storage/imageStorage';
 
 const FilterComponent = ({ navigation, img }) => {
   const [filter, setFilter] = useState('');

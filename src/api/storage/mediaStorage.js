@@ -1,13 +1,15 @@
 import { getAllImages } from './imageStorage';
 import { getAllVideos } from './videoStorage';
 import { removeFromFavorite } from './favoriteStorage';
+import { getAllAudios } from './audioStorage';
 
 const RNFS = require('react-native-fs');
 
 const getAllMedia = async () => {
   const images = await getAllImages();
   const videos = await getAllVideos();
-  return images.concat(videos);
+  const audios = await getAllAudios();
+  return images.concat(videos, audios);
 };
 
 export const deleteMedia = (media) => {

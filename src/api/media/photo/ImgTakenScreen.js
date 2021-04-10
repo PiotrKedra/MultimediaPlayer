@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, StatusBar } from 'react-native';
-import { WHITE } from '../../assets/values/colors';
+import { WHITE } from '../../../assets/values/colors';
 import FilterComponent from './filter/FilterComponent';
-import { STD_MARGIN } from '../../assets/values/dimensions';
+import { STD_MARGIN } from '../../../assets/values/dimensions';
 
 const ImgTakenScreen = ({ navigation, route }) => {
   const { img } = route.params;

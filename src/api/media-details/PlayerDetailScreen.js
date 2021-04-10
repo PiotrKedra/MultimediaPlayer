@@ -4,24 +4,28 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Video from 'react-native-video';
+import LinearGradient from 'react-native-linear-gradient';
+import HeadphoneDetection from 'react-native-headphone-detection';
 import {
   BACK, DELETE, FAVORITE, FAVORITE_FILLED,
 } from '../../assets/values/images';
 import Text from '../custom-components/Text';
 import { refreshMedia } from '../redux/media/media.actions';
-import { WHITE } from '../../assets/values/colors';
+import { WHITE, WHITE_GRADIENT_END, WHITE_GRADIENT_START } from '../../assets/values/colors';
 import {
-  ICON_SIZE, STD_MARGIN,
+  ICON_SIZE, LARGE_MARGIN, STD_MARGIN,
 } from '../../assets/values/dimensions';
 import MediaController from './MediaController';
 import { addToFavorite, removeFromFavorite } from '../storage/favoriteStorage';
 import { deleteMedia } from '../storage/mediaStorage';
+import { AUDIO_TYPE, VIDEO_TYPE } from '../storage/mediaConsts';
+import AudioPlayerAnimation from './AudioPlayerAnimation';
 
 const SEEK_TIME = 5;
 
-const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
-  const { video } = route.params;
-  const [isFavorite, setIsFavorite] = useState(video.favorite);
+const PlayerDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
+  const mediaObject = route.params.video;
+  const [isFavorite, setIsFavorite] = useState(mediaObject.favorite);
   const player = useRef(null);
   const [paused, setPaused] = useState(true);
   const [currentTime, setCurrentTime] = useState(0.0);
@@ -30,7 +34,14 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
   const [seeking, setSeeking] = useState(false);
   const [speedRate, setSpeedRate] = useState(1.0);
 
-  const stopVideo = () => {
+  React.useEffect(() => {
+    const listener = HeadphoneDetection.addListener(() => setPaused(true));
+    return () => {
+      listener.remove();
+    };
+  }, []);
+
+  const playOrResumeVideo = () => {
     setPaused(!paused);
   };
 
@@ -74,16 +85,37 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
-      <Video
-        ref={player}
-        source={video.path}
-        style={styles.backgroundVideo}
-        resizeMode="cover"
-        paused={paused}
-        repeat
-        rate={speedRate}
-        onProgress={(data) => setTimes(data)}
-      />
+      {
+        mediaObject.type === VIDEO_TYPE
+        && (
+          <Video
+            ref={player}
+            source={mediaObject.path}
+            style={styles.backgroundVideo}
+            resizeMode="cover"
+            paused={paused}
+            repeat
+            rate={speedRate}
+            onProgress={(data) => setTimes(data)}
+          />
+        )
+      }
+      {
+        mediaObject.type === AUDIO_TYPE
+        && (
+          <>
+            <Video
+              ref={player}
+              source={mediaObject.path}
+              paused={paused}
+              repeat
+              rate={speedRate}
+              onProgress={(data) => setTimes(data)}
+            />
+            <AudioPlayerAnimation isPlaying={!paused} speed={speedRate} />
+          </>
+        )
+      }
 
       <MediaController
         paused={paused}
@@ -92,20 +124,23 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
         videoTime={videoTime}
         moveBackward={() => moveBackward()}
         moveForward={() => moveForward()}
-        stopVideo={() => stopVideo()}
+        playOrResumeVideo={() => playOrResumeVideo()}
         startSeeking={() => setSeeking(true)}
         seekToExactTime={(value) => seekToExactTime(value)}
         setSpeedRate={(value) => setSpeedRate(value)}
         speedRate={speedRate}
       />
 
-      <View style={styles.topContainer}>
+      <LinearGradient
+        colors={[WHITE_GRADIENT_END, WHITE_GRADIENT_START]}
+        style={styles.topContainer}
+      >
         <View style={styles.topRightContainer}>
           {
             isFavorite === false ? (
               <TouchableOpacity
                 onPress={() => {
-                  addToFavorite(video.name, video.type);
+                  addToFavorite(mediaObject.name, mediaObject.type);
                   refreshMediaGrid();
                   setIsFavorite(true);
                 }}
@@ -118,7 +153,7 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
             ) : (
               <TouchableOpacity
                 onPress={() => {
-                  removeFromFavorite(video.name, video.type);
+                  removeFromFavorite(mediaObject.name, mediaObject.type);
                   refreshMediaGrid();
                   setIsFavorite(false);
                 }}
@@ -133,7 +168,7 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
 
           <TouchableOpacity
             onPress={() => {
-              deleteMedia(video);
+              deleteMedia(mediaObject);
               refreshMediaGrid();
               navigation.goBack();
             }}
@@ -152,8 +187,8 @@ const VideoDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <Text style={styles.nameText}>{video.name}</Text>
-      </View>
+        <Text style={styles.nameText}>{mediaObject.name}</Text>
+      </LinearGradient>
     </View>
   );
 };
@@ -169,12 +204,13 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     position: 'absolute',
-    top: STD_MARGIN,
+    top: 0,
     left: 0,
-    paddingTop: STD_MARGIN,
+    paddingTop: 2 * STD_MARGIN,
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
+    paddingBottom: 2 * LARGE_MARGIN,
   },
   nameText: { fontSize: 15, marginLeft: STD_MARGIN },
   topRightContainer: {
@@ -182,6 +218,7 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     padding: STD_MARGIN,
+    paddingTop: 2 * STD_MARGIN,
     flexDirection: 'row',
   },
   icon: {
@@ -195,4 +232,4 @@ const mapDispatchToProps = (dispatch) => ({
   refreshMediaGrid: () => dispatch(refreshMedia()),
 });
 
-export default connect(null, mapDispatchToProps)(VideoDetailScreen);
+export default connect(null, mapDispatchToProps)(PlayerDetailScreen);

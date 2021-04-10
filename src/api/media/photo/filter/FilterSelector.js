@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import { BLACK, WHITE } from '../../../assets/values/colors';
+import { BLACK, WHITE } from '../../../../assets/values/colors';
 import SaturationSelector from './filters-selectors/SaturationSelector';
 import InkwellSelector from './filters-selectors/InkwellSelector';
 import HefeSelector from './filters-selectors/HefeSelector';
 import BrannanSelector from './filters-selectors/BrannanSelector';
 import LokofiSelector from './filters-selectors/LokofiSelector';
 import NegativeSelector from './filters-selectors/NegativeSelector';
-import { BORDER_WIDTH } from '../../../assets/values/dimensions';
+import { BORDER_WIDTH } from '../../../../assets/values/dimensions';
 
 const FilterSelector = ({ path, setFilter }) => {
   const filterSelectors = [

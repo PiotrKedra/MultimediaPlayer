@@ -1,7 +1,7 @@
 import {
   MEDIA_GRID_REFRESHED,
   MEDIA_QUANTITY,
-  REFRESH_MEDIA_GRID, SET_SEARCH_INPUT, SET_SELECTED_FORMAT,
+  REFRESH_MEDIA_GRID, SET_SEARCH_INPUT, SET_SEARCH_TAGS, SET_SELECTED_FORMAT,
   SORT_BY_AGE,
   SORT_BY_NAME,
 } from './media.types';
@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   sortBy: SORT_AGE,
   selectedFormat: ALL_FORMAT,
   searchInput: '',
+  searchTags: [],
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +37,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         searchInput: action.input,
+      };
+    case SET_SEARCH_TAGS:
+      return {
+        ...state,
+        searchTags: action.searchTags,
       };
     case SORT_BY_AGE:
       return {

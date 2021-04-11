@@ -89,7 +89,7 @@ export const getTagsForMedia = async (mediaName) => {
   return [];
 };
 
-const getAllMediaTagObjects = async () => {
+export const getAllMediaTagObjects = async () => {
   try {
     const allMediaTags = await AsyncStorage.getItem(MEDIA_TAGS_STORAGE);
     if (allMediaTags !== null) return JSON.parse(allMediaTags);

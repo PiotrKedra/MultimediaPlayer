@@ -10,7 +10,6 @@ import {
   BORDER_RADIUS, SEARCH_BAR_MARGIN,
   SEARCH_ICON_SIZE,
   SMALL_BORDER_WIDTH,
-  SMALL_MARGIN,
   TINY_MARGIN,
 } from '../../../assets/values/dimensions';
 import { SEARCH_TEXT } from '../../../assets/values/strings';
@@ -51,7 +50,6 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS,
     paddingTop: TINY_MARGIN,
     paddingBottom: TINY_MARGIN,
-    marginBottom: SMALL_MARGIN,
     justifyContent: 'space-between',
   },
   icon: {

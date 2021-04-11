@@ -5,3 +5,4 @@ export const SORT_BY_AGE = 'SORT_BY_AGE';
 export const SORT_BY_NAME = 'SORT_BY_NAME';
 export const SET_SELECTED_FORMAT = 'SET_SELECTED_FORMAT';
 export const SET_SEARCH_INPUT = 'SET_SEARCH_INPUT';
+export const SET_SEARCH_TAGS = 'SET_SEARCH_TAGS';

@@ -31,18 +31,22 @@ const MediaGrid = ({
     globalProps.shouldRefreshMedia,
     globalProps.sortBy,
     globalProps.format,
-    globalProps.searchInput]);
+    globalProps.searchInput,
+    globalProps.searchTags,
+  ]);
 
   const loadMedia = () => {
     getAllMedia().then((result) => {
-      const sorted = sortMedia(
+      sortMedia(
         result,
         globalProps.sortBy,
         globalProps.format,
         globalProps.searchInput,
-      );
-      setMedia(sorted);
-      setMediaListLength(sorted.length);
+        globalProps.searchTags,
+      ).then((sorted) => {
+        setMedia(sorted);
+        setMediaListLength(sorted.length);
+      });
     });
   };
 
@@ -98,7 +102,7 @@ const MediaGrid = ({
             style={styles.audioItem}
           >
             <Image source={AUDIO_FILE} style={styles.icon} />
-            <Text numberOfLines={1}>{item.name}</Text>
+            <Text numberOfLines={1} style={styles.audioName}>{item.name}</Text>
           </Pressable>
         );
       default:
@@ -146,6 +150,7 @@ const styles = StyleSheet.create({
     padding: SMALL_MARGIN, borderRadius: LARGE_MARGIN, backgroundColor: WHITE_GRADIENT_END,
   },
   icon: { width: ICON_SIZE, height: ICON_SIZE, opacity: 0.8 },
+  audioName: { fontSize: 11 },
 });
 
 const mapStateToProps = (state) => ({
@@ -154,6 +159,7 @@ const mapStateToProps = (state) => ({
     sortBy: state.sortBy,
     format: state.selectedFormat,
     searchInput: state.searchInput,
+    searchTags: state.searchTags,
   },
 });
 

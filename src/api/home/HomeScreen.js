@@ -15,9 +15,10 @@ import DetailModal from './DetailModal';
 import init from '../appInit';
 import CreateMediaModal from './CreateMediaModal';
 import Header from './control/Header';
-import Settings from './tags/Settings';
-import NewTagModal from './tags/NewTagModal';
-import RemoveTagModal from './tags/RemoveTagModal';
+import Settings from './settings/Settings';
+import NewTagModal from './settings/NewTagModal';
+import RemoveTagModal from './settings/RemoveTagModal';
+import SearchByTagsModal from './control/SearchByTagsModal';
 
 const HomeScreen = ({ navigation }) => {
   const [isDetailModal, setIsDetailModal] = useState(false);
@@ -26,6 +27,7 @@ const HomeScreen = ({ navigation }) => {
   const [isSettingModal, setIsSettingModal] = useState(false);
   const [isNewTagModal, setIsNewTagModal] = useState(false);
   const [isRemoveTagModal, setIsRemoveTagModal] = useState(false);
+  const [isSearchByTagModal, setIsSearchByTagModal] = useState(false);
 
   React.useEffect(() => {
     init();
@@ -40,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
       <Header openSettings={() => setIsSettingModal(true)} />
-      <ControlPanel />
+      <ControlPanel searchByTags={() => setIsSearchByTagModal(true)} />
       <MediaGrid
         navigation={navigation}
         isDetailModal={isDetailModal}
@@ -61,6 +63,14 @@ const HomeScreen = ({ navigation }) => {
       }
       {
         isRemoveTagModal && <RemoveTagModal close={() => setIsRemoveTagModal(false)} />
+      }
+      {
+        isSearchByTagModal
+        && (
+          <SearchByTagsModal
+            close={() => setIsSearchByTagModal(false)}
+          />
+        )
       }
       {
         !isCreateMediaModal

@@ -1,18 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { STD_MARGIN } from '../../../assets/values/dimensions';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SMALL_MARGIN, STD_MARGIN } from '../../../assets/values/dimensions';
 import FileFormatSelector from './FileFormatSelector';
 import Text from '../../custom-components/Text';
-import { SECONDARY_TEXT } from '../../../assets/values/colors';
+import { PRIMARY, SECONDARY_TEXT } from '../../../assets/values/colors';
 import SortByPanel from './SortByPanel';
 import {
-  ALL, FILES, PHOTOS, RECORDS, VIDEOS,
+  ALL, FILES, PHOTOS, RECORDS, SEARCH_BY_TAGS, TAGS, VIDEOS,
 } from '../../../assets/values/strings';
 import { AUDIO_FORMAT, PHOTO_FORMAT, VIDEO_FORMAT } from '../../redux/media/mediaConsts';
 import SearchBar from './SearchBar';
 
-const ControlPanel = ({ mediaQuantity, format }) => {
+const ControlPanel = ({ searchByTags, mediaQuantity, format }) => {
   const mapFormatToText = () => {
     switch (format) {
       case PHOTO_FORMAT:
@@ -29,6 +30,10 @@ const ControlPanel = ({ mediaQuantity, format }) => {
   return (
     <View style={styles.container}>
       <SearchBar />
+      <TouchableOpacity style={styles.searchByTagsButton} onPress={searchByTags}>
+        <Text>{SEARCH_BY_TAGS}</Text>
+        <Text style={styles.tagText}>{TAGS}</Text>
+      </TouchableOpacity>
       <FileFormatSelector />
       <View style={styles.titleAndSortContainer}>
         <View style={styles.titleContainer}>
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
     margin: STD_MARGIN,
   },
   titleAndSortContainer: {
-    marginTop: 24,
+    marginTop: SMALL_MARGIN,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -63,6 +68,8 @@ const styles = StyleSheet.create({
     color: SECONDARY_TEXT,
     fontSize: 10,
   },
+  searchByTagsButton: { flexDirection: 'row', marginBottom: SMALL_MARGIN },
+  tagText: { fontFamily: 'Comfortaa-Bold', color: PRIMARY },
 });
 
 const mapStateToProps = (state) => ({

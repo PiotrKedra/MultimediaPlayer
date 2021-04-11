@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingBottom: 2 * LARGE_MARGIN,
   },
-  nameText: { fontSize: 12, marginLeft: STD_MARGIN },
+  nameText: { fontSize: 10, marginLeft: SMALL_MARGIN },
   topRightContainer: {
     position: 'absolute',
     top: 0,

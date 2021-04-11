@@ -5,7 +5,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { CLEAR, SEARCH } from '../../../assets/values/images';
-import { BLACK, SECONDARY_TEXT } from '../../../assets/values/colors';
+import { BLACK, GRAY } from '../../../assets/values/colors';
 import {
   BORDER_RADIUS, SEARCH_BAR_MARGIN,
   SEARCH_ICON_SIZE,
@@ -24,11 +24,9 @@ const SearchBar = ({ input, setInput }) => (
     <TextInput
       onChangeText={(value) => setInput(value)}
       value={input}
-      style={styles.input}
       placeholder={SEARCH_TEXT}
-      InputProps={{ disableUnderline: true }}
-      underlineColorAndroid="transparent"
-      borderWidth={0}
+      style={styles.input}
+      placeholderTextColor={GRAY}
     />
     <TouchableOpacity
       style={styles.clearButton}
@@ -64,10 +62,10 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: 'Comfortaa-Regular',
     fontSize: 17,
-    color: SECONDARY_TEXT,
     width: '70%',
     margin: 0,
     padding: 0,
+    color: BLACK,
   },
 });
 

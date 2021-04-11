@@ -3,7 +3,7 @@ import { View, StyleSheet, TextInput } from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
-  BLACK, MODAL_BACKGROUND, PRIMARY, WHITE,
+  BLACK, GRAY, MODAL_BACKGROUND, PRIMARY, WHITE,
 } from '../../../assets/values/colors';
 import Text from '../../custom-components/Text';
 import {
@@ -34,6 +34,7 @@ const NewTagModal = ({ close }) => {
           style={styles.input}
           maxLength={MAX_TAG_LENGTH}
           autoFocus
+          placeholderTextColor={GRAY}
         />
         <View style={styles.controlContainer}>
           <TouchableOpacity style={styles.closeButton} onPress={close}>
@@ -76,6 +77,7 @@ const styles = StyleSheet.create({
     paddingVertical: MARGIN_TWO,
     marginVertical: STD_MARGIN,
     fontFamily: 'Comfortaa-Regular',
+    color: BLACK,
   },
   saveButton: {
     borderRadius: BORDER_RADIUS,

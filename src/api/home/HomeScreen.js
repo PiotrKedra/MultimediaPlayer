@@ -73,7 +73,7 @@ const HomeScreen = ({ navigation }) => {
         )
       }
       {
-        !isCreateMediaModal
+        !isCreateMediaModal && !isNewTagModal
         && (
           <Pressable onPress={() => setIsCreateMediaModal(true)} style={styles.addButton}>
             <Text style={styles.textButton}>+</Text>

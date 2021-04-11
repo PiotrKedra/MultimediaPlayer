@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Comfortaa-Bold',
-    fontSize: 30,
+    fontSize: 25,
   },
   fileQuantity: {
     color: SECONDARY_TEXT,

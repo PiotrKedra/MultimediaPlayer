@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   itemContainer: { flex: 1 },
   slider: { flex: 4 },
   speedRateContainer: { flex: 1, alignItems: 'flex-end' },
-  speedRate: { fontFamily: 'Comfortaa-Bold', fontSize: 20 },
+  speedRate: { fontFamily: 'Comfortaa-Bold', fontSize: 18 },
 });
 
 export default MediaController;

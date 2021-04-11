@@ -1,12 +1,9 @@
 import React from 'react';
-import { Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../home/HomeScreen';
-import { MENU } from '../../assets/values/images';
 import CameraScreen from '../media/photo/PhotoScreen';
 import ImgTakenScreen from '../media/photo/ImgTakenScreen';
 import ImgDetailScreen from '../media-details/ImgDetailScreen';
-import { SMALL_ICON_SIZE, SMALL_MARGIN } from '../../assets/values/dimensions';
 import VideoScreen from '../media/video/VideoScreen';
 import PlayerDetailScreen from '../media-details/PlayerDetailScreen';
 import AudioScreen from '../media/audio/AudioScreen';
@@ -30,24 +27,7 @@ function addHomeScreen() {
     <Stack.Screen
       name="Home"
       component={HomeScreen}
-      options={{
-        title: 'Mplayer',
-        headerTitleStyle: {
-          fontFamily: 'Comfortaa-Bold',
-          fontSize: 30,
-        },
-        headerRight: () => (
-          <Image
-            style={{
-              width: SMALL_ICON_SIZE,
-              height: SMALL_ICON_SIZE,
-              marginRight: SMALL_MARGIN,
-              marginTop: SMALL_MARGIN,
-            }}
-            source={MENU}
-          />
-        ),
-      }}
+      options={{ headerShown: false }}
     />
   );
 }

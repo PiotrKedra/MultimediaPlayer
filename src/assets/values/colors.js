@@ -8,3 +8,4 @@ export const WHITE_GRADIENT_START = 'rgba(255, 255, 255, 0)';
 export const WHITE_GRADIENT_END = 'rgba(255, 255, 255, 0.6)';
 export const GRAY = '#ccc';
 export const DARK_GRAY = '#aaa';
+export const RED = '#ff6961';

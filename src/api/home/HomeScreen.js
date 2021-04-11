@@ -14,11 +14,18 @@ import MediaGrid from './MediaGrid';
 import DetailModal from './DetailModal';
 import init from '../appInit';
 import CreateMediaModal from './CreateMediaModal';
+import Header from './control/Header';
+import Settings from './tags/Settings';
+import NewTagModal from './tags/NewTagModal';
+import RemoveTagModal from './tags/RemoveTagModal';
 
 const HomeScreen = ({ navigation }) => {
   const [isDetailModal, setIsDetailModal] = useState(false);
   const [details, setDetails] = useState({});
   const [isCreateMediaModal, setIsCreateMediaModal] = useState(false);
+  const [isSettingModal, setIsSettingModal] = useState(false);
+  const [isNewTagModal, setIsNewTagModal] = useState(false);
+  const [isRemoveTagModal, setIsRemoveTagModal] = useState(false);
 
   React.useEffect(() => {
     init();
@@ -32,6 +39,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+      <Header openSettings={() => setIsSettingModal(true)} />
       <ControlPanel />
       <MediaGrid
         navigation={navigation}
@@ -39,6 +47,21 @@ const HomeScreen = ({ navigation }) => {
         setIsDetailModal={setIsDetailModal}
         showDetails={showDetails}
       />
+      {
+        isSettingModal && (
+        <Settings
+          close={() => setIsSettingModal(false)}
+          openNewTagModal={() => setIsNewTagModal(true)}
+          openRemoveTagModal={() => setIsRemoveTagModal(true)}
+        />
+        )
+      }
+      {
+        isNewTagModal && <NewTagModal close={() => setIsNewTagModal(false)} />
+      }
+      {
+        isRemoveTagModal && <RemoveTagModal close={() => setIsRemoveTagModal(false)} />
+      }
       {
         !isCreateMediaModal
         && (

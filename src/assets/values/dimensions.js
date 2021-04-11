@@ -23,3 +23,4 @@ export const SORT_SELECTOR_HEIGHT = 90;
 export const SORT_SELECTOR_SHIFT = 10;
 export const RECORD_ICON = 60;
 export const SEARCH_BAR_MARGIN = 12;
+export const HEADER_HEIGHT = 55;

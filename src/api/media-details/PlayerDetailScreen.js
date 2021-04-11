@@ -1,25 +1,32 @@
 import React, { useState, useRef } from 'react';
 import {
-  View, StyleSheet, StatusBar, Image, TouchableOpacity,
+  View, StyleSheet, StatusBar, Image, TouchableOpacity, ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Video from 'react-native-video';
 import LinearGradient from 'react-native-linear-gradient';
 import HeadphoneDetection from 'react-native-headphone-detection';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {
-  BACK, DELETE, FAVORITE, FAVORITE_FILLED,
+  BACK, DELETE, FAVORITE, FAVORITE_FILLED, TAG,
 } from '../../assets/values/images';
 import Text from '../custom-components/Text';
 import { refreshMedia } from '../redux/media/media.actions';
-import { WHITE, WHITE_GRADIENT_END, WHITE_GRADIENT_START } from '../../assets/values/colors';
 import {
-  ICON_SIZE, LARGE_MARGIN, STD_MARGIN,
+  BLACK, PRIMARY, WHITE, WHITE_GRADIENT_END, WHITE_GRADIENT_START,
+} from '../../assets/values/colors';
+import {
+  BORDER_RADIUS,
+  ICON_SIZE, LARGE_MARGIN, SMALL_MARGIN, STD_MARGIN, TINY_MARGIN,
 } from '../../assets/values/dimensions';
 import MediaController from './MediaController';
 import { addToFavorite, removeFromFavorite } from '../storage/favoriteStorage';
 import { deleteMedia } from '../storage/mediaStorage';
 import { AUDIO_TYPE, VIDEO_TYPE } from '../storage/mediaConsts';
 import AudioPlayerAnimation from './AudioPlayerAnimation';
+import { getTagsForMedia, removeTagFromMedia } from '../storage/tagStorage';
+import AttachTagToMediaModal from './AttachTagToMediaModal';
+import { TAG_REMOVED } from '../../assets/values/strings';
 
 const SEEK_TIME = 5;
 
@@ -33,13 +40,20 @@ const PlayerDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
   const [progress, setProgress] = useState(0.0);
   const [seeking, setSeeking] = useState(false);
   const [speedRate, setSpeedRate] = useState(1.0);
+  const [isAddTagModal, setIsTagModal] = useState(false);
+  const [tags, setTags] = useState([]);
 
   React.useEffect(() => {
     const listener = HeadphoneDetection.addListener(() => setPaused(true));
+    getTagsForMedia(mediaObject.name).then((t) => setTags(t));
     return () => {
       listener.remove();
     };
   }, []);
+
+  React.useEffect(() => {
+    getTagsForMedia(mediaObject.name).then((t) => setTags(t));
+  }, [isAddTagModal]);
 
   const playOrResumeVideo = () => {
     setPaused(!paused);
@@ -135,50 +149,6 @@ const PlayerDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
         colors={[WHITE_GRADIENT_END, WHITE_GRADIENT_START]}
         style={styles.topContainer}
       >
-        <View style={styles.topRightContainer}>
-          {
-            isFavorite === false ? (
-              <TouchableOpacity
-                onPress={() => {
-                  addToFavorite(mediaObject.name, mediaObject.type);
-                  refreshMediaGrid();
-                  setIsFavorite(true);
-                }}
-              >
-                <Image
-                  source={FAVORITE}
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() => {
-                  removeFromFavorite(mediaObject.name, mediaObject.type);
-                  refreshMediaGrid();
-                  setIsFavorite(false);
-                }}
-              >
-                <Image
-                  source={FAVORITE_FILLED}
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
-            )
-          }
-
-          <TouchableOpacity
-            onPress={() => {
-              deleteMedia(mediaObject);
-              refreshMediaGrid();
-              navigation.goBack();
-            }}
-          >
-            <Image
-              source={DELETE}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        </View>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
         >
@@ -188,7 +158,90 @@ const PlayerDetailScreen = ({ route, navigation, refreshMediaGrid }) => {
           />
         </TouchableOpacity>
         <Text style={styles.nameText}>{mediaObject.name}</Text>
+        <View style={styles.topRightContainer}>
+          <View style={styles.topRightContainerUpper}>
+            <TouchableOpacity
+              disabled={tags.length === 3}
+              onPress={() => setIsTagModal(true)}
+            >
+              <Image
+                source={TAG}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+            {
+              isFavorite === false ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    addToFavorite(mediaObject.name, mediaObject.type);
+                    refreshMediaGrid();
+                    setIsFavorite(true);
+                  }}
+                >
+                  <Image
+                    source={FAVORITE}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    removeFromFavorite(mediaObject.name, mediaObject.type);
+                    refreshMediaGrid();
+                    setIsFavorite(false);
+                  }}
+                >
+                  <Image
+                    source={FAVORITE_FILLED}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
+              )
+            }
+
+            <TouchableOpacity
+              onPress={() => {
+                deleteMedia(mediaObject);
+                refreshMediaGrid();
+                navigation.goBack();
+              }}
+            >
+              <Image
+                source={DELETE}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.topRightContainerUpper}>
+            {
+              tags.map((t) => (
+                <Pressable
+                  style={styles.tagContainer}
+                  key={t}
+                  onLongPress={() => removeTagFromMedia(mediaObject.name, t)
+                    .then(() => getTagsForMedia(mediaObject.name))
+                    .then((updatedTags) => {
+                      setTags(updatedTags);
+                      ToastAndroid.show(TAG_REMOVED, ToastAndroid.SHORT);
+                    })}
+                >
+                  <Text style={styles.tagText}>{t}</Text>
+                </Pressable>
+              ))
+            }
+          </View>
+        </View>
       </LinearGradient>
+
+      {
+        isAddTagModal
+        && (
+        <AttachTagToMediaModal
+          mediaName={mediaObject.name}
+          close={() => setIsTagModal(false)}
+        />
+        )
+      }
     </View>
   );
 };
@@ -212,20 +265,34 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingBottom: 2 * LARGE_MARGIN,
   },
-  nameText: { fontSize: 15, marginLeft: STD_MARGIN },
+  nameText: { fontSize: 12, marginLeft: STD_MARGIN },
   topRightContainer: {
     position: 'absolute',
     top: 0,
     right: 0,
     padding: STD_MARGIN,
     paddingTop: 2 * STD_MARGIN,
-    flexDirection: 'row',
   },
+  topRightContainerUpper: { flexDirection: 'row', justifyContent: 'flex-end' },
   icon: {
     width: ICON_SIZE,
     height: ICON_SIZE,
     marginLeft: STD_MARGIN,
   },
+  tagContainer: {
+    marginTop: SMALL_MARGIN,
+    paddingHorizontal: STD_MARGIN,
+    backgroundColor: PRIMARY,
+    opacity: 0.7,
+    marginBottom: TINY_MARGIN,
+    marginRight: TINY_MARGIN,
+    borderRadius: BORDER_RADIUS,
+    shadowColor: BLACK,
+    shadowOpacity: 0.8,
+    shadowRadius: 10,
+    elevation: 6,
+  },
+  tagText: { fontSize: 13 },
 });
 
 const mapDispatchToProps = (dispatch) => ({

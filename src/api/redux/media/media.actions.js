@@ -1,7 +1,7 @@
 import {
   MEDIA_GRID_REFRESHED,
   MEDIA_QUANTITY,
-  REFRESH_MEDIA_GRID,
+  REFRESH_MEDIA_GRID, SET_SEARCH_INPUT, SET_SELECTED_FORMAT,
   SORT_BY_AGE,
   SORT_BY_NAME,
 } from './media.types';
@@ -25,4 +25,14 @@ export const sortByAge = () => ({
 
 export const sortByName = () => ({
   type: SORT_BY_NAME,
+});
+
+export const setSelectedFormat = (format) => ({
+  type: SET_SELECTED_FORMAT,
+  format,
+});
+
+export const setSearchInput = (input) => ({
+  type: SET_SEARCH_INPUT,
+  input,
 });

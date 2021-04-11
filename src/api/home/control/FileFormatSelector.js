@@ -1,26 +1,69 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import Text from '../../custom-components/Text';
 import {
   BLACK, LIGHT, PRIMARY, SECONDARY_TEXT,
 } from '../../../assets/values/colors';
 import {
-  FILE_SELECTOR_HEIGHT,
-  FILE_SELECTOR_WIDTH,
+  BORDER_WIDTH,
   SMALL_BORDER_WIDTH,
   STD_MARGIN,
   TINY_MARGIN,
 } from '../../../assets/values/dimensions';
+import {
+  ALL, PHOTOS, RECORDS, VIDEOS,
+} from '../../../assets/values/strings';
+import { setSelectedFormat } from '../../redux/media/media.actions';
+import {
+  ALL_FORMAT, AUDIO_FORMAT, PHOTO_FORMAT, VIDEO_FORMAT,
+} from '../../redux/media/mediaConsts';
 
-const FileFormatSelector = () => (
-  <View style={styles.container}>
-    <Text style={[styles.text, styles.formatSelectedText]}>All</Text>
-    <Text style={styles.text}>Photos</Text>
-    <Text style={styles.text}>Videos</Text>
-    <Text style={styles.text}>Records</Text>
-    <View style={styles.selected} />
-  </View>
-);
+const FileFormatSelector = ({ format, setFormat }) => {
+  let allButtonStyle = styles.nonSelected;
+  let photoButtonStyle = styles.nonSelected;
+  let videoButtonStyle = styles.nonSelected;
+  let audioButtonStyle = styles.nonSelected;
+  let allTextStyle = styles.nonSelectedText;
+  let photoTextStyle = styles.nonSelectedText;
+  let videoTextStyle = styles.nonSelectedText;
+  let audioTextStyle = styles.nonSelectedText;
+  if (format === ALL_FORMAT) {
+    allButtonStyle = styles.selected;
+    allTextStyle = styles.selectedText;
+  }
+  if (format === PHOTO_FORMAT) {
+    photoButtonStyle = styles.selected;
+    photoTextStyle = styles.selectedText;
+  }
+  if (format === VIDEO_FORMAT) {
+    videoButtonStyle = styles.selected;
+    videoTextStyle = styles.selectedText;
+  }
+  if (format === AUDIO_FORMAT) {
+    audioButtonStyle = styles.selected;
+    audioTextStyle = styles.selectedText;
+  }
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={allButtonStyle}
+        onPress={() => setFormat(ALL_FORMAT)}
+      >
+        <Text style={allTextStyle}>{ALL}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={photoButtonStyle} onPress={() => setFormat(PHOTO_FORMAT)}>
+        <Text style={photoTextStyle}>{PHOTOS}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={videoButtonStyle} onPress={() => setFormat(VIDEO_FORMAT)}>
+        <Text style={videoTextStyle}>{VIDEOS}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={audioButtonStyle} onPress={() => setFormat(AUDIO_FORMAT)}>
+        <Text style={audioTextStyle}>{RECORDS}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -31,16 +74,24 @@ const styles = StyleSheet.create({
     borderBottomWidth: SMALL_BORDER_WIDTH,
     borderColor: LIGHT,
   },
-  formatSelectedText: { color: BLACK },
-  text: { fontSize: 17, color: SECONDARY_TEXT },
+  selectedText: { color: BLACK, fontSize: 17 },
+  nonSelectedText: { fontSize: 17, color: SECONDARY_TEXT },
   selected: {
-    backgroundColor: PRIMARY,
-    width: FILE_SELECTOR_WIDTH,
-    height: FILE_SELECTOR_HEIGHT,
-    position: 'absolute',
-    left: 0,
-    bottom: -2,
+    borderColor: PRIMARY,
+    borderBottomWidth: BORDER_WIDTH,
+    paddingHorizontal: TINY_MARGIN,
+  },
+  nonSelected: {
+    paddingHorizontal: TINY_MARGIN,
   },
 });
 
-export default FileFormatSelector;
+const mapStateToProps = (state) => ({
+  format: state.selectedFormat,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setFormat: (format) => dispatch(setSelectedFormat(format)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileFormatSelector);

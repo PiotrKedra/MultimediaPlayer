@@ -1,5 +1,9 @@
 export const ALL = 'All';
+export const PHOTOS = 'Photos';
+export const VIDEOS = 'Videos';
+export const RECORDS = 'Records';
 export const FILES = 'files';
+export const SEARCH_TEXT = 'Search';
 export const SAVE_TEXT = 'save';
 export const SORT_BY_TEXT = 'Sort by: ';
 export const AGE_TEXT = 'age';

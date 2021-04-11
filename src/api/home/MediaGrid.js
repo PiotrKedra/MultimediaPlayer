@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { mediaRefreshed, setMediaQuantity } from '../redux/media/media.actions';
-import { SORT_NAME } from '../redux/media/sortConsts';
 import getAllMedia from '../storage/mediaStorage';
 import { AUDIO_TYPE, IMAGE_TYPE, VIDEO_TYPE } from '../storage/mediaConsts';
 import { AUDIO_FILE, VIDEO } from '../../assets/values/images';
@@ -14,6 +13,7 @@ import {
 } from '../../assets/values/dimensions';
 import { GRAY, WHITE_GRADIENT_END } from '../../assets/values/colors';
 import Text from '../custom-components/Text';
+import sortMedia from './control/sortFunction';
 
 const MAX_X_CORD = Dimensions.get('window').width * 0.5;
 const Y_SHIFT = 80;
@@ -26,22 +26,24 @@ const MediaGrid = ({
   useEffect(() => {
     loadMedia();
     mediaGridRefreshed();
-  }, [globalProps.shouldRefreshMedia, globalProps.sortBy]);
+  },
+  [
+    globalProps.shouldRefreshMedia,
+    globalProps.sortBy,
+    globalProps.format,
+    globalProps.searchInput]);
 
   const loadMedia = () => {
     getAllMedia().then((result) => {
-      sortMedia(result);
-      setMedia(result);
-      setMediaListLength(result.length);
+      const sorted = sortMedia(
+        result,
+        globalProps.sortBy,
+        globalProps.format,
+        globalProps.searchInput,
+      );
+      setMedia(sorted);
+      setMediaListLength(sorted.length);
     });
-  };
-
-  const sortMedia = (mediaList) => {
-    if (globalProps.sortBy === SORT_NAME) {
-      mediaList.sort((a, b) => a.name.localeCompare(b.name));
-    } else {
-      mediaList.sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
-    }
   };
 
   const showDetailsModal = (nativeEvent, details) => {
@@ -150,6 +152,8 @@ const mapStateToProps = (state) => ({
   globalProps: {
     shouldRefreshMedia: state.shouldRefreshMedia,
     sortBy: state.sortBy,
+    format: state.selectedFormat,
+    searchInput: state.searchInput,
   },
 });
 

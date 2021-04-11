@@ -1,16 +1,18 @@
 import {
   MEDIA_GRID_REFRESHED,
   MEDIA_QUANTITY,
-  REFRESH_MEDIA_GRID,
+  REFRESH_MEDIA_GRID, SET_SEARCH_INPUT, SET_SELECTED_FORMAT,
   SORT_BY_AGE,
   SORT_BY_NAME,
 } from './media.types';
-import { SORT_AGE, SORT_NAME } from './sortConsts';
+import { ALL_FORMAT, SORT_AGE, SORT_NAME } from './mediaConsts';
 
 const INITIAL_STATE = {
   shouldRefreshMedia: false,
   mediaQuantity: null,
   sortBy: SORT_AGE,
+  selectedFormat: ALL_FORMAT,
+  searchInput: '',
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -30,6 +32,11 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         mediaQuantity: action.mediaQuantity,
       };
+    case SET_SEARCH_INPUT:
+      return {
+        ...state,
+        searchInput: action.input,
+      };
     case SORT_BY_AGE:
       return {
         ...state,
@@ -39,6 +46,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         sortBy: SORT_NAME,
+      };
+    case SET_SELECTED_FORMAT:
+      return {
+        ...state,
+        selectedFormat: action.format,
       };
     default: return state;
   }

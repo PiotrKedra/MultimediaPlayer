@@ -32,9 +32,7 @@ const VideoScreen = ({ navigation, refreshMediaGrid }) => {
     setIsRecording(true);
     const options = { maxDuration: 60 };
     const video = await camera.current.recordAsync(options);
-    console.log(video);
     const videoObject = await saveVideo(video.uri);
-    console.log(videoObject);
     navigation.navigate('VideoDetailScreen', { video: videoObject });
   };
 

@@ -7,7 +7,7 @@ import Text from '../../custom-components/Text';
 import { EXPAND_ARROW } from '../../../assets/values/images';
 import { BLACK, SECONDARY_TEXT, WHITE } from '../../../assets/values/colors';
 import { AGE_TEXT, NAME_TEXT, SORT_BY_TEXT } from '../../../assets/values/strings';
-import { SORT_NAME } from '../../redux/media/sortConsts';
+import { SORT_NAME } from '../../redux/media/mediaConsts';
 import {
   ARROW_ICON_SIZE,
   BORDER_RADIUS,

@@ -5,5 +5,11 @@ Implemented functionalities like:
 - applying several filters to picture,
 - recording video,
 - recorging voice,
+- main screen shows all media, and allows to search/filter/sort them,
+- we can also mark/unmark favorite pictures
 
-Main screen shows all medias which were taken within app, and allows to search/filter/sort them.
+# Screen from app
+
+![app screenshot](preview.png?raw=true "app screenshot")
+
+

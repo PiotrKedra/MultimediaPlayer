@@ -1,4 +1,6 @@
-# React-native multimedia app, containing general functionalities like:
+# React-native multimedia app
+
+Implemented functionalities like:
 - taking picture,
 - applying several filters to picture,
 - recording video,
